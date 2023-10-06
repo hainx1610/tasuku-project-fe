@@ -5,9 +5,10 @@ import MainFooter from "./MainFooter";
 
 function MainLayout() {
   return (
-    <div>
+    <div className=" flex flex-col h-screen">
       <MainHeader />
       <Outlet />
+      <div className=" grow"></div>
       <MainFooter />
     </div>
   );
