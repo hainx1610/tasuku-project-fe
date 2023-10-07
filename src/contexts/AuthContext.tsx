@@ -45,7 +45,7 @@ const reducer = (state, action) => {
   }
 };
 
-const setSession = (accessToken) => {
+const setSession = (accessToken: string | null) => {
   if (accessToken) {
     window.localStorage.setItem("accessToken", accessToken);
     apiService.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -63,10 +63,32 @@ function AuthProvider({ children }) {
 
   // const updatedProfile = useSelector((state) => state.user.updatedProfile);
 
+  // const autoLogin = ...
+  const autoLogin = async () => {
+    const response = await apiService.post(
+      "/auth/refresh",
+      {},
+      { withCredentials: true }
+    );
+    const { user, accessToken } = response.data.data;
+
+    // save accessToken to apiService for future use after login
+    setSession(accessToken);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: { user },
+    });
+  };
+
   useEffect(() => {
     const initialize = async () => {
       try {
-        // get accessToken from localStorage
+        try {
+          await autoLogin();
+        } catch (error) {
+          console.log(error);
+        }
+
         const accessToken = window.localStorage.getItem("accessToken");
 
         if (accessToken && isValidToken(accessToken)) {
@@ -103,7 +125,11 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async ({ email, password }, callback) => {
-    const response = await apiService.post("/auth/login", { email, password });
+    const response = await apiService.post(
+      "/auth/login",
+      { email, password },
+      { withCredentials: true }
+    );
     const { user, accessToken } = response.data.data;
 
     // save accessToken to apiService for future use after login

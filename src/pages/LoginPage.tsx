@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as Yup from "yup";
@@ -47,6 +47,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   // const [showPassword, setShowPassword] = useState(false);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
