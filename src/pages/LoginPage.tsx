@@ -19,6 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Toggle } from "@/components/ui/toggle";
+import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
   email: z
@@ -46,7 +48,7 @@ function LoginPage() {
   // 2. Define a submit handler.
   const navigate = useNavigate();
   const location = useLocation();
-  // const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -75,7 +77,7 @@ function LoginPage() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Enter your email" {...field} />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />
@@ -88,15 +90,24 @@ function LoginPage() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
+              <div className="flex ">
+                <FormControl>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    {...field}
+                  />
+                </FormControl>
+                <Toggle onClick={() => setShowPassword(!showPassword)}>
+                  {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                </Toggle>
+              </div>
               <FormDescription></FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Sign in</Button>
       </form>
     </Form>
   );
