@@ -2,7 +2,22 @@ import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 
-const initialState = {
+interface TUser {
+  email: string;
+  name: string;
+  password: string;
+}
+
+interface TState {
+  isInitialized: boolean;
+  isAuthenticated: boolean;
+  user: null | { name: string; email: string };
+  login?: (obj: TUser, cb: () => void) => Promise<void>;
+  logout?: (cb: () => void) => Promise<void>;
+  register?: (obj: TUser, cb: () => void) => Promise<void>;
+}
+
+const initialState: TState = {
   isInitialized: false,
   isAuthenticated: false,
   user: null,
@@ -58,18 +73,18 @@ const setSession = (accessToken: string | null) => {
 
 const AuthContext = createContext({ ...initialState });
 
-function AuthProvider({ children }) {
+function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // const updatedProfile = useSelector((state) => state.user.updatedProfile);
 
-  // const autoLogin = ...
   const autoLogin = async () => {
     const response = await apiService.post(
       "/auth/refresh",
       {},
       { withCredentials: true }
     );
+
     const { user, accessToken } = response.data.data;
 
     // save accessToken to apiService for future use after login
@@ -124,7 +139,7 @@ function AuthProvider({ children }) {
     initialize();
   }, []);
 
-  const login = async ({ email, password }, callback) => {
+  const login = async ({ email, password }: TUser, callback: () => void) => {
     const response = await apiService.post(
       "/auth/login",
       { email, password },
@@ -141,7 +156,10 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  const register = async ({ name, email, password }, callback) => {
+  const register = async (
+    { name, email, password }: TUser,
+    callback: () => void
+  ) => {
     const response = await apiService.post("/users", { name, email, password });
     const { user, accessToken } = response.data.data;
 
@@ -154,8 +172,8 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  const logout = async (callback) => {
-    await apiService.delete("auth/logout");
+  const logout = async (callback: () => void) => {
+    await apiService.delete("auth/logout", { withCredentials: true });
     setSession(null);
     dispatch({ type: LOGOUT });
     callback();
