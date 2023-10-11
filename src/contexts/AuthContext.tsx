@@ -1,25 +1,9 @@
 import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
+import { TAuthState, TUser } from "@/types";
 
-interface TUser {
-  email: string;
-  name: string;
-  password?: string;
-  responsibleFor: { _id: string }[];
-  memberOf: { _id: string }[];
-}
-
-interface TState {
-  isInitialized: boolean;
-  isAuthenticated: boolean;
-  user: null | TUser;
-  login?: (obj: TUser, cb: () => void) => Promise<void>;
-  logout?: (cb: () => void) => Promise<void>;
-  register?: (obj: TUser, cb: () => void) => Promise<void>;
-}
-
-const initialState: TState = {
+const initialState: TAuthState = {
   isInitialized: false,
   isAuthenticated: false,
   user: null,
@@ -30,7 +14,7 @@ const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 
-const reducer = (state, action) => {
+const reducer = (state: TAuthState, action: any) => {
   switch (action.type) {
     case INITIALIZE:
       return {
