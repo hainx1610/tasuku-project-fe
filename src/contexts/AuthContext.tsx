@@ -5,13 +5,15 @@ import { isValidToken } from "../utils/jwt";
 interface TUser {
   email: string;
   name: string;
-  password: string;
+  password?: string;
+  responsibleFor: { _id: string }[];
+  memberOf: { _id: string }[];
 }
 
 interface TState {
   isInitialized: boolean;
   isAuthenticated: boolean;
-  user: null | { name: string; email: string };
+  user: null | TUser;
   login?: (obj: TUser, cb: () => void) => Promise<void>;
   logout?: (cb: () => void) => Promise<void>;
   register?: (obj: TUser, cb: () => void) => Promise<void>;

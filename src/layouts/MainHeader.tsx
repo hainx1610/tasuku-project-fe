@@ -32,7 +32,7 @@ function MainHeader() {
   const handleLogout = async () => {
     try {
       // handleMenuClose();
-      if (!logout) throw new Error("oops");
+      if (!logout) throw new Error("Logout func undefined");
       await logout(() => {
         navigate("/login");
       });
@@ -69,7 +69,7 @@ function MainHeader() {
               navigate("/account");
             }}
           >
-            <MenubarItem>Profile</MenubarItem>
+            <MenubarItem>Account</MenubarItem>
           </RouterLink>
           <MenubarSeparator />
           <MenubarItem onClick={handleLogout}>Logout</MenubarItem>
