@@ -1,7 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
-import { TAuthState, TUser } from "@/types";
+import { TAuthState, TLoginObj, TRegisterObj } from "@/types";
 
 const initialState: TAuthState = {
   isInitialized: false,
@@ -125,7 +125,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     initialize();
   }, []);
 
-  const login = async ({ email, password }: TUser, callback: () => void) => {
+  const login = async (
+    { email, password }: TLoginObj,
+    callback: () => void
+  ) => {
     const response = await apiService.post(
       "/auth/login",
       { email, password },
@@ -143,7 +146,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = async (
-    { name, email, password }: TUser,
+    { name, email, password }: TRegisterObj,
     callback: () => void
   ) => {
     const response = await apiService.post("/users", { name, email, password });

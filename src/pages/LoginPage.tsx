@@ -57,6 +57,7 @@ function LoginPage() {
     const { email, password } = values;
 
     try {
+      if (!auth.login) throw new Error("Logout func undefined");
       await auth.login({ email, password }, () => {
         navigate(from, { replace: true });
         // this is the callback param of the login func in AuthProvider
