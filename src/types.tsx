@@ -17,10 +17,11 @@ interface TUser {
   password: string;
   responsibleFor: TTask[];
   memberOf: TProject[];
+  role: string;
 }
 
-type TLoginObj = Omit<TUser, "name" | "responsibleFor" | "memberOf">;
-type TRegisterObj = Omit<TUser, "responsibleFor" | "memberOf">;
+type TLoginObj = Omit<TUser, "name" | "responsibleFor" | "memberOf" | "role">;
+type TRegisterObj = Omit<TUser, "responsibleFor" | "memberOf" | "role">;
 
 interface TAuthState {
   isInitialized: boolean;

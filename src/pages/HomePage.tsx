@@ -8,11 +8,14 @@ function HomePage() {
   const { user } = useAuth();
 
   const userMemberOf = user ? user["memberOf"] : [];
+  const userRole = user ? user.role : undefined;
 
   return (
     <Tabs defaultValue={userMemberOf[0]._id} className="flex space-x-4">
       <TabsList className="flex flex-col h-screen">
-        <TabsTrigger value="invite">Invite</TabsTrigger>
+        {userRole === "manager" && (
+          <TabsTrigger value="invite">Invite</TabsTrigger>
+        )}
         <Separator className="my-3" />
         {userMemberOf.map((tabstrigger) => (
           <TabsTrigger value={tabstrigger._id} key={tabstrigger._id}>
