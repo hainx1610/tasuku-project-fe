@@ -11,15 +11,15 @@ function HomePage() {
   const userRole = user ? user.role : undefined;
 
   return (
-    <Tabs defaultValue={userMemberOf[0]._id} className="flex space-x-4">
+    <Tabs defaultValue={userMemberOf[0].name} className="flex space-x-4">
       <TabsList className="flex flex-col h-screen">
         {userRole === "manager" && (
           <TabsTrigger value="invite">Invite</TabsTrigger>
         )}
         <Separator className="my-3" />
         {userMemberOf.map((tabstrigger) => (
-          <TabsTrigger value={tabstrigger._id} key={tabstrigger._id}>
-            {tabstrigger._id}
+          <TabsTrigger value={tabstrigger.name} key={tabstrigger._id}>
+            {tabstrigger.name}
           </TabsTrigger>
         ))}
       </TabsList>
@@ -27,7 +27,7 @@ function HomePage() {
         <InvitationInput />
       </TabsContent>
       {userMemberOf.map((tabscontent) => (
-        <TabsContent value={tabscontent._id} key={tabscontent._id}>
+        <TabsContent value={tabscontent.name} key={tabscontent._id}>
           {tabscontent.name +
             " " +
             tabscontent.description +
