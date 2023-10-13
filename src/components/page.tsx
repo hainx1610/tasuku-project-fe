@@ -1,4 +1,4 @@
-import { Payment, columns } from "./columns";
+import { Payment, columns } from "@/app/features/tasks/taskColumns";
 import { DataTable } from "./ui/data-table";
 
 async function getData(): Promise<Payment[]> {
