@@ -11,30 +11,32 @@ function HomePage() {
   const userRole = user ? user.role : undefined;
 
   return (
-    <Tabs defaultValue={userMemberOf[0].name} className="flex space-x-4">
-      <TabsList className="flex flex-col h-screen">
-        {userRole === "manager" && (
-          <TabsTrigger value="invite">Invite</TabsTrigger>
-        )}
-        <Separator className="my-3" />
-        {userMemberOf.map((tabstrigger) => (
-          <TabsTrigger value={tabstrigger.name} key={tabstrigger._id}>
-            {tabstrigger.name}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-      <TabsContent value="invite">
-        <InvitationInput />
-      </TabsContent>
-      {userMemberOf.map((tabscontent) => (
-        <TabsContent value={tabscontent.name} key={tabscontent._id}>
-          {tabscontent.name +
-            " " +
-            tabscontent.description +
-            tabscontent.includeTasks}
+    <>
+      <Tabs defaultValue={userMemberOf[0].name} className="flex space-x-4">
+        <TabsList className="flex flex-col h-screen">
+          {userRole === "manager" && (
+            <TabsTrigger value="invite">Invite</TabsTrigger>
+          )}
+          <Separator className="my-3" />
+          {userMemberOf.map((tabstrigger) => (
+            <TabsTrigger value={tabstrigger.name} key={tabstrigger._id}>
+              {tabstrigger.name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        <TabsContent value="invite">
+          <InvitationInput />
         </TabsContent>
-      ))}
-    </Tabs>
+        {userMemberOf.map((tabscontent) => (
+          <TabsContent value={tabscontent.name} key={tabscontent._id}>
+            {tabscontent.name +
+              " " +
+              tabscontent.description +
+              tabscontent.includeTasks}
+          </TabsContent>
+        ))}
+      </Tabs>
+    </>
   );
 }
 
