@@ -2,15 +2,16 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, priorities, statuses } from "../data/data";
-import { Task } from "../data/schema";
+import { priorities, statuses } from "@/app/features/task/taskProperties";
+// import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
 import { DataTableRowActions } from "@/components/ui/data-table-row-actions";
+import { TTask } from "@/types";
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<TTask>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -32,28 +33,28 @@ export const columns: ColumnDef<Task>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+  // {
+  //   accessorKey: "_id",
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Task" />
+  //   ),
+  //   cell: ({ row }) => <div className="w-[80px]">{row.getValue("_id")}</div>,
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
-    accessorKey: "id",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Title" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label);
+      // const label = labels.find((label) => label.value === row.original.label);
 
       return (
         <div className="flex space-x-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
+          {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("name")}
           </span>
         </div>
       );

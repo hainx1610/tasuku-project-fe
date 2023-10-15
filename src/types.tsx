@@ -32,4 +32,17 @@ interface TAuthState {
   register?: (obj: TRegisterObj, cb: () => void) => Promise<void>;
 }
 
-export type { TProject, TTask, TUser, TAuthState, TLoginObj, TRegisterObj };
+interface TTaskState {
+  isLoading: boolean;
+  error: null;
+}
+
+export type {
+  TProject,
+  TTask,
+  TUser,
+  TAuthState,
+  TLoginObj,
+  TRegisterObj,
+  TTaskState,
+};

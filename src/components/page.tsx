@@ -1,5 +1,5 @@
-import { Payment, columns } from "@/app/features/tasks/taskColumns";
-import { DataTable } from "./ui/data-table";
+import { Payment, columns } from "@/app/features/task/taskColumns";
+import { DataTable } from "../app/features/task/data-table";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
