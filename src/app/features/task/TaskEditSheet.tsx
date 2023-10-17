@@ -11,7 +11,7 @@ import {
 
 import TaskEditForm from "./TaskEditForm";
 
-export default function TaskEditSheet({ isOpen, setIsOpen }) {
+export default function TaskEditSheet({ isOpen, setIsOpen, task }) {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       {/* <SheetTrigger asChild>
@@ -24,7 +24,7 @@ export default function TaskEditSheet({ isOpen, setIsOpen }) {
             Make changes to the task here. Click save when you're done.
           </SheetDescription>
         </SheetHeader>
-        <TaskEditForm />
+        <TaskEditForm task={task} />
         <SheetFooter>
           {/* <SheetClose asChild>
             <Button type="submit">Save changes</Button>

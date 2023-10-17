@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSingleProject } from "@/app/features/project/projectSlice";
 import TaskTable from "@/app/features/task/taskTable";
 
-import { columns } from "@/app/features/task/taskColumns";
+import { columns, statusValue } from "@/app/features/task/taskColumns";
 import { DataTable } from "@/components/ui/data-table";
 import TaskInfoSheet from "@/app/features/task/TaskEditSheet";
 
@@ -61,6 +61,7 @@ function HomePage() {
         {userMemberOf.map((tabscontent) => (
           <TabsContent value={tabscontent.name} key={tabscontent._id}>
             {tabscontent.description}
+            {}
             <TaskTable
             // data={selectedProject ? selectedProject.includeTasks : []}
             />

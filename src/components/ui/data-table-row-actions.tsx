@@ -8,19 +8,20 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  // DropdownMenuRadioGroup,
-  // DropdownMenuRadioItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  // DropdownMenuSub,
-  // DropdownMenuSubContent,
-  // DropdownMenuSubTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import TaskEditSheet from "@/app/features/task/TaskEditSheet";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getSingleTask } from "@/app/features/task/taskSlice";
+import { editTask, getSingleTask } from "@/app/features/task/taskSlice";
+import { statuses } from "@/app/features/task/taskProperties";
 
 // import { labels } from "../../app/features/task/taskProperties";
 // import { taskSchema } from "../data/schema";
@@ -66,19 +67,34 @@ export function DataTableRowActions<TData>({
           {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem> */}
           <DropdownMenuSeparator />
-          {/* <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator /> */}
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Set Status</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuRadioGroup value={task.status}>
+                {statuses.map((status) => (
+                  <DropdownMenuRadioItem
+                    key={status.value}
+                    value={status.value}
+                    data-set={status.value}
+                    onClick={async (e) => {
+                      const targetValue = (
+                        e.target as HTMLTextAreaElement
+                      ).getAttribute("data-set");
+                      dispatch(
+                        editTask({
+                          status: targetValue,
+                          taskId: task._id,
+                        })
+                      );
+                    }}
+                  >
+                    {status.label}
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+          <DropdownMenuSeparator />
           <DropdownMenuItem>
             Delete
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
@@ -86,7 +102,7 @@ export function DataTableRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <TaskEditSheet isOpen={isOpen} setIsOpen={setIsOpen} />
+      <TaskEditSheet isOpen={isOpen} setIsOpen={setIsOpen} task={task} />
     </>
   );
 }
