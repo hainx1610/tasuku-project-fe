@@ -17,6 +17,10 @@ import {
   // DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import TaskEditSheet from "@/app/features/task/TaskEditSheet";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getSingleTask } from "@/app/features/task/taskSlice";
 
 // import { labels } from "../../app/features/task/taskProperties";
 // import { taskSchema } from "../data/schema";
@@ -34,23 +38,35 @@ export function DataTableRowActions<TData>({
   const task = row.original;
   // console.log(task);
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-        >
-          <DotsHorizontalIcon className="h-4 w-4" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Go to Task</DropdownMenuItem>
-        {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          >
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuItem
+            onClick={async () => {
+              setIsOpen(true);
+              dispatch(getSingleTask(task._id));
+            }}
+          >
+            Edit
+          </DropdownMenuItem>
+          {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem> */}
-        <DropdownMenuSeparator />
-        {/* <DropdownMenuSub>
+          <DropdownMenuSeparator />
+          {/* <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             <DropdownMenuRadioGroup value={task.label}>
@@ -63,11 +79,14 @@ export function DataTableRowActions<TData>({
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSeparator /> */}
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuItem>
+            Delete
+            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <TaskEditSheet isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 }

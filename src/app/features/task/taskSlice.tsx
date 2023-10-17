@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 const initialState = {
   isLoading: false,
   error: null,
+  selectedTask: null,
 };
 
 const slice = createSlice({
@@ -25,6 +26,16 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       const newTask = action.payload;
+    },
+    getSingleTaskSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.selectedTask = action.payload;
+    },
+    editTaskSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const editedTask = action.payload;
     },
   },
 });
@@ -44,6 +55,40 @@ export const createTask =
       dispatch(slice.actions.createTaskSuccess(response.data.data));
       // response.xxx is the action.payload
     } catch (error: any) {
+      dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
+    }
+  };
+
+export const getSingleTask = (taskId) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get(`/tasks/${taskId}`);
+
+    dispatch(slice.actions.getSingleTaskSuccess(response.data.data));
+    // response.xxx is the action.payload
+  } catch (error: any) {
+    dispatch(slice.actions.hasError(error.message));
+    console.error(error.message);
+    // toast.error(error.message);
+  }
+};
+
+export const editTask =
+  ({ title, description, status, priority, taskId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/tasks/${taskId}`, {
+        name: title,
+        description,
+        status,
+        priority,
+      });
+      console.log(response);
+      dispatch(slice.actions.editTaskSuccess(response.data.data));
+      toast.success("Your task has been updated.");
+    } catch (error) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);
     }

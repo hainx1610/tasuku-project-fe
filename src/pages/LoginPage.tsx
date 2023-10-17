@@ -63,6 +63,8 @@ function LoginPage() {
         // this is the callback param of the login func in AuthProvider
       });
     } catch (error) {
+      // console.log(error);
+      form.reset();
       console.log(error);
     }
     // console.log(values);

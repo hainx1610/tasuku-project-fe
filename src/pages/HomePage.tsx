@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useAuth from "@/hooks/useAuth";
 import { Separator } from "@/components/ui/separator";
@@ -10,6 +10,7 @@ import TaskTable from "@/app/features/task/taskTable";
 
 import { columns } from "@/app/features/task/taskColumns";
 import { DataTable } from "@/components/ui/data-table";
+import TaskInfoSheet from "@/app/features/task/TaskEditSheet";
 
 function HomePage() {
   const { user } = useAuth();
@@ -25,8 +26,11 @@ function HomePage() {
 
   return (
     <>
-      <Tabs className="flex space-x-4">
+      <Tabs defaultValue="welcome" className="flex space-x-4">
         <TabsList className="flex flex-col h-screen">
+          <TabsTrigger className="hidden" value="welcome">
+            Welcome
+          </TabsTrigger>
           {userRole === "manager" && (
             <TabsTrigger value="invite">Invite</TabsTrigger>
           )}
@@ -43,6 +47,12 @@ function HomePage() {
             </TabsTrigger>
           ))}
         </TabsList>
+
+        <TabsContent value="welcome">
+          <div>
+            Welcome back, {user!.name}. Choose a project to view your tasks.
+          </div>
+        </TabsContent>
 
         <TabsContent value="invite">
           <InvitationInput />
