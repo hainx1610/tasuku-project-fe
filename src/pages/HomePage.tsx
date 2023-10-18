@@ -11,6 +11,8 @@ import TaskTable from "@/app/features/task/taskTable";
 import { columns, statusValue } from "@/app/features/task/taskColumns";
 import { DataTable } from "@/components/ui/data-table";
 import TaskInfoSheet from "@/app/features/task/TaskEditSheet";
+import { Button } from "@/components/ui/button";
+import TaskCreateSheet from "@/app/features/task/TaskCreateSheet";
 
 function HomePage() {
   const { user } = useAuth();
@@ -65,6 +67,8 @@ function HomePage() {
             <TaskTable
             // data={selectedProject ? selectedProject.includeTasks : []}
             />
+
+            <TaskCreateSheet />
           </TabsContent>
         ))}
       </Tabs>

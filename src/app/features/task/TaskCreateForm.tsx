@@ -21,33 +21,30 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useDispatch } from "react-redux";
-import { editTask } from "./taskSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { createTask } from "./taskSlice";
 
 const formSchema = z.object({
-  title: z.string().optional(),
-  description: z.string().optional(),
+  title: z.string({ required_error: "Task title is required" }),
+  description: z.string({ required_error: "Task description is required" }),
   status: z.string().optional(),
   priority: z.string().optional(),
 });
 
-function TaskEditForm({ task }) {
+function TaskCreateForm() {
   const dispatch = useDispatch();
-  // const { selectedTask } = useSelector((state) => state.task);
-  // console.log(selectedTask, "selectedtask");
+
+  const { selectedProject } = useSelector((state: any) => state.project);
+  console.log(selectedProject, "selectedproject to create");
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: task?.name || "",
-      description: task?.description || "",
-      status: task?.status || "",
-      priority: task?.priority || "",
-      // title: selectedTask?.name || "",
-      // description: selectedTask?.description || "",
-      // status: selectedTask?.status || "",
-      // priority: selectedTask?.priority || "",
+      title: "",
+      description: "",
+      status: "pending",
+      priority: "normal",
     },
   });
 
@@ -58,9 +55,10 @@ function TaskEditForm({ task }) {
     // ✅ This will be type-safe and validated.
     // console.log(values);
     // dispatch here!
-    dispatch(editTask({ ...values, taskId: task._id })).then(() =>
-      form.reset()
-    );
+    dispatch(createTask({ ...values, inProject: selectedProject._id }));
+    // .then(
+    //   () => form.reset()
+    // );
   }
 
   return (
@@ -106,7 +104,7 @@ function TaskEditForm({ task }) {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select" />
+                    <SelectValue placeholder="select" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -131,7 +129,7 @@ function TaskEditForm({ task }) {
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select" />
+                    <SelectValue placeholder="select" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -145,10 +143,10 @@ function TaskEditForm({ task }) {
           )}
         />
 
-        <Button type="submit">Save changes</Button>
+        <Button type="submit">Create</Button>
       </form>
     </Form>
   );
 }
 
-export default TaskEditForm;
+export default TaskCreateForm;

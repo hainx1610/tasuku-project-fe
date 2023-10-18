@@ -27,7 +27,8 @@ const slice = createSlice({
     createTaskSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      const newTask = action.payload;
+      // const newTask = action.payload;
+      state.selectedTask = action.payload;
     },
     getSingleTaskSuccess(state, action) {
       state.isLoading = false;
@@ -44,16 +45,18 @@ const slice = createSlice({
 });
 
 export const createTask =
-  ({ name, description, inProject }) =>
+  ({ title, description, inProject, status, priority }) =>
   async (dispatch: any) => {
     // middleware
 
     dispatch(slice.actions.startLoading());
     try {
-      const response = await apiService.post("/Tasks", {
-        name,
+      const response = await apiService.post("/tasks", {
+        name: title,
         description,
         inProject,
+        status,
+        priority,
       });
       dispatch(slice.actions.createTaskSuccess(response.data.data));
       // response.xxx is the action.payload
