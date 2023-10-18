@@ -20,7 +20,7 @@ import {
 import TaskEditSheet from "@/app/features/task/TaskEditSheet";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editTask, getSingleTask } from "@/app/features/task/taskSlice";
+import { editTask } from "@/app/features/task/taskSlice";
 import { statuses } from "@/app/features/task/taskProperties";
 
 // import { labels } from "../../app/features/task/taskProperties";
@@ -37,7 +37,7 @@ export function DataTableRowActions<TData>({
   // You can access the row data using row.original in the cell function.
   // Use this to handle actions for your row eg. use the id to make a DELETE call to your API.
   const task = row.original;
-  // console.log(task);
+  // console.log(task, "row original");
 
   const [isOpen, setIsOpen] = useState(false);
 

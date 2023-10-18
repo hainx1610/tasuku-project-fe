@@ -67,9 +67,11 @@ export const getSingleTask = (taskId) => async (dispatch) => {
   dispatch(slice.actions.startLoading());
   try {
     const response = await apiService.get(`/tasks/${taskId}`);
+    console.log(response);
 
     dispatch(slice.actions.getSingleTaskSuccess(response.data.data));
     // response.xxx is the action.payload
+    toast.success("Your task has been retrieved.");
   } catch (error: any) {
     dispatch(slice.actions.hasError(error.message));
     console.error(error.message);
