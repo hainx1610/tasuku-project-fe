@@ -58,8 +58,8 @@ export function DataTableRowActions<TData>({
         <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuItem
             onClick={async () => {
+              // dispatch(getSingleTask(task._id));
               setIsOpen(true);
-              dispatch(getSingleTask(task._id));
             }}
           >
             Edit

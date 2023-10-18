@@ -9,6 +9,8 @@ const initialState = {
   isLoading: false,
   error: null,
   selectedTask: null,
+  // tasksById: {},
+  // currentPageTasks: [],
 };
 
 const slice = createSlice({
@@ -35,7 +37,8 @@ const slice = createSlice({
     editTaskSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      const editedTask = action.payload;
+      // const editedTask = action.payload;
+      state.selectedTask = action.payload;
     },
   },
 });
