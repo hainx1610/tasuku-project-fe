@@ -21,6 +21,13 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
+    createProjectSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      // const newProject = action.payload;
+      state.selectedProject = action.payload;
+    },
+
     getSingleProjectSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
@@ -28,6 +35,17 @@ const slice = createSlice({
     },
   },
 });
+
+export const createProject = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.post("/tasks", {});
+    dispatch(slice.actions.createProjectSuccess(response.data.data));
+  } catch (error: any) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
 
 export const getSingleProject = (projectId) => async (dispatch) => {
   dispatch(slice.actions.startLoading());

@@ -13,6 +13,7 @@ import { DataTable } from "@/components/ui/data-table";
 import TaskInfoSheet from "@/app/features/task/TaskEditSheet";
 import { Button } from "@/components/ui/button";
 import TaskCreateSheet from "@/app/features/task/TaskCreateSheet";
+import ProjectCreateForm from "@/app/features/project/ProjectCreateForm";
 
 function HomePage() {
   const { user } = useAuth();
@@ -48,6 +49,10 @@ function HomePage() {
               {tabstrigger.name}
             </TabsTrigger>
           ))}
+
+          <Separator className="my-3" />
+
+          <TabsTrigger value="create-project">+ New Project</TabsTrigger>
         </TabsList>
 
         <TabsContent value="welcome">
@@ -71,6 +76,10 @@ function HomePage() {
             <TaskCreateSheet />
           </TabsContent>
         ))}
+
+        <TabsContent value="create-project">
+          <ProjectCreateForm />
+        </TabsContent>
       </Tabs>
     </>
   );
