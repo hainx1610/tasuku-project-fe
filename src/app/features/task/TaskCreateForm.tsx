@@ -35,7 +35,6 @@ function TaskCreateForm() {
   const dispatch = useDispatch();
 
   const { selectedProject } = useSelector((state: any) => state.project);
-  console.log(selectedProject, "selectedproject to create");
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
