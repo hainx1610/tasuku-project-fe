@@ -11,10 +11,13 @@ import {
 
 import { Button } from "@/components/ui/button";
 import TaskCreateForm from "./TaskCreateForm";
+import { useState } from "react";
 
 export default function TaskCreateSheet() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button>+ New Task</Button>
       </SheetTrigger>
@@ -25,7 +28,7 @@ export default function TaskCreateSheet() {
             Create a new task here. Click save when you're done.
           </SheetDescription>
         </SheetHeader>
-        <TaskCreateForm />
+        <TaskCreateForm setIsOpen={setIsOpen} />
         <SheetFooter>
           {/* <SheetClose asChild>
             <Button type="submit">Save changes</Button>

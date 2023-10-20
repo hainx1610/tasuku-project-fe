@@ -31,7 +31,7 @@ const formSchema = z.object({
   priority: z.string().optional(),
 });
 
-function TaskCreateForm() {
+function TaskCreateForm({ setIsOpen }) {
   const dispatch = useDispatch();
 
   const { selectedProject } = useSelector((state: any) => state.project);
@@ -58,6 +58,7 @@ function TaskCreateForm() {
     // .then(
     //   () => form.reset()
     // );
+    setIsOpen(false);
   }
 
   return (
