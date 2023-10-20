@@ -3,7 +3,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { DataTable } from "@/components/ui/data-table";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { getSingleProject } from "../project/projectSlice";
+
 import { useEffect } from "react";
 import { getTasksByProject } from "./taskSlice";
 
@@ -38,7 +38,7 @@ export default function TaskTable() {
   );
 
   useEffect(() => {
-    if (projectId) dispatch(getTasksByProject(projectId)); //reset state first?
+    if (projectId) dispatch(getTasksByProject(projectId));
   }, [dispatch, projectId]);
 
   const tasks = currentPageTasks.map((taskId) => tasksById[taskId]);

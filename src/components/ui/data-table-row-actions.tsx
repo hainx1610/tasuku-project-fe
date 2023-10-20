@@ -18,10 +18,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import TaskEditSheet from "@/app/features/task/TaskEditSheet";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { editTask } from "@/app/features/task/taskSlice";
 import { statuses } from "@/app/features/task/taskProperties";
+import useAuth from "@/hooks/useAuth";
+import { getUsersByProject } from "@/app/features/user/userSlice";
 
 // import { labels } from "../../app/features/task/taskProperties";
 // import { taskSchema } from "../data/schema";
@@ -39,9 +41,41 @@ export function DataTableRowActions<TData>({
   const task = row.original;
   // console.log(task, "row original");
 
-  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuth();
 
   const dispatch = useDispatch();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  // const [assigneeId, setAssigneeId] = useState(task.assignedTo?._id);
+  // const handleAssigneeOnChange = (e) => {
+  //   console.log(e.target, "etarget");
+  //   // setAssigneeId(e.target);
+  //   // dispatch(
+  //   //   editTask({
+  //   //     assignedTo: assigneeId,
+  //   //     taskId: task._id,
+  //   //   })
+  //   // );
+  // };
+
+  const { selectedProject } = useSelector(
+    (state) => state.project,
+    shallowEqual
+  );
+
+  const projectId = selectedProject?._id;
+
+  const { usersById, currentUsers } = useSelector(
+    (state) => state.user,
+    shallowEqual
+  );
+
+  useEffect(() => {
+    if (projectId) dispatch(getUsersByProject(projectId));
+  }, [dispatch, projectId]);
+
+  const members = currentUsers.map((userId) => usersById[userId]);
 
   return (
     <>
@@ -55,6 +89,7 @@ export function DataTableRowActions<TData>({
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuItem
             onClick={async () => {
@@ -64,9 +99,9 @@ export function DataTableRowActions<TData>({
           >
             Edit
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem> */}
+
           <DropdownMenuSeparator />
+
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>Set Status</DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
@@ -94,7 +129,43 @@ export function DataTableRowActions<TData>({
               </DropdownMenuRadioGroup>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
+
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Assign to</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuRadioGroup
+                // value={task.assignedTo?._id}
+                value={task.assignedTo?._id}
+                // onValueChange={(e) => handleAssigneeOnChange(e)}
+              >
+                {members.map((member) => (
+                  <DropdownMenuRadioItem
+                    key={member._id}
+                    value={member._id}
+                    data-set={member._id}
+                    onClick={async (e) => {
+                      const targetValue = (
+                        e.target as HTMLTextAreaElement
+                      ).getAttribute("data-set");
+
+                      dispatch(
+                        editTask({
+                          assignedTo: targetValue,
+                          taskId: task._id,
+                        })
+                      );
+                    }}
+                  >
+                    {`${member.name} - ${member._id}`}
+                    {user?._id === member._id ? " (me)" : ""}
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+
           <DropdownMenuSeparator />
+
           <DropdownMenuItem>
             Delete
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

@@ -42,7 +42,12 @@ const slice = createSlice({
       state.error = null;
       const tasks = action.payload;
       tasks.forEach((task) => {
-        state.tasksById[task._id] = task;
+        const assigneeName = task.assignedTo ? task.assignedTo.name : "";
+        const taskWithAssigneeName = {
+          ...task,
+          assigneeName,
+        };
+        state.tasksById[task._id] = taskWithAssigneeName;
 
         if (!state.currentPageTasks.includes(task._id))
           state.currentPageTasks.push(task._id);
@@ -57,11 +62,13 @@ const slice = createSlice({
     editTaskSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
-      const { description, status, priority } = action.payload;
+      const { description, status, priority, assignedTo } = action.payload;
       // state.selectedTask = action.payload;
       state.tasksById[action.payload._id].description = description;
       state.tasksById[action.payload._id].status = status;
       state.tasksById[action.payload._id].priority = priority;
+      state.tasksById[action.payload._id].assignedTo = assignedTo;
+      state.tasksById[action.payload._id].assigneeName = assignedTo.name;
     },
   },
 });
@@ -117,7 +124,7 @@ export const getTasksByProject = (taskId) => async (dispatch) => {
 };
 
 export const editTask =
-  ({ title, description, status, priority, taskId }) =>
+  ({ title, description, status, priority, taskId, assignedTo }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -126,6 +133,7 @@ export const editTask =
         description,
         status,
         priority,
+        assignedTo,
       });
       // console.log(response);
       dispatch(slice.actions.editTaskSuccess(response.data.data));
