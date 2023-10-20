@@ -2,6 +2,8 @@ import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 import { TAuthState, TLoginObj, TRegisterObj } from "@/types";
+import { useDispatch } from "react-redux";
+import { getProjectsByUser } from "@/app/features/project/projectSlice";
 
 const initialState: TAuthState = {
   isInitialized: false,
@@ -142,6 +144,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       type: LOGIN_SUCCESS,
       payload: { user },
     });
+
     callback();
   };
 

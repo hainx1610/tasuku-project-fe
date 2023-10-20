@@ -12,6 +12,7 @@ interface TTask {
 }
 
 interface TUser {
+  _id: string;
   email: string;
   name: string;
   password: string;

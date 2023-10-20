@@ -50,10 +50,7 @@ function ProjectCreateForm() {
     // ✅ This will be type-safe and validated.
     // console.log(values);
     // dispatch here!
-    dispatch(createProject({ ...values }));
-    // .then(
-    //   () => form.reset()
-    // );
+    dispatch(createProject({ ...values })).then(() => form.reset());
   }
 
   return (
