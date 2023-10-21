@@ -24,11 +24,25 @@ import { Input } from "@/components/ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { createTask } from "./taskSlice";
 
+import { format, formatISO } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
+import { Calendar } from "@/components/ui/calendar";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 const formSchema = z.object({
   title: z.string({ required_error: "Task title is required" }),
   description: z.string({ required_error: "Task description is required" }),
   status: z.string().optional(),
   priority: z.string().optional(),
+  dueDate: z.date().optional(),
 });
 
 function TaskCreateForm({ setIsOpen }) {
@@ -44,6 +58,7 @@ function TaskCreateForm({ setIsOpen }) {
       description: "",
       status: "pending",
       priority: "normal",
+      dueDate: undefined,
     },
   });
 
@@ -52,7 +67,7 @@ function TaskCreateForm({ setIsOpen }) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    // console.log(values);
+    console.log(values, "values");
     // dispatch here!
     dispatch(createTask({ ...values, inProject: selectedProject._id }));
     // .then(
@@ -78,6 +93,7 @@ function TaskCreateForm({ setIsOpen }) {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="description"
@@ -138,6 +154,49 @@ function TaskCreateForm({ setIsOpen }) {
                   <SelectItem value="low">low</SelectItem>
                 </SelectContent>
               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="dueDate"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Due date</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[240px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    // disabled={(date) =>
+                    //   date > new Date() || date < new Date("1900-01-01")
+                    // }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
+              {/* <FormDescription>For when the task is due.</FormDescription> */}
               <FormMessage />
             </FormItem>
           )}

@@ -29,8 +29,9 @@ const slice = createSlice({
       state.isLoading = false;
       state.error = null;
       const newTask = action.payload;
+      const newTaskDuedate = action.payload.dueDate;
       // newTask.assigneeName = action.payload.assignedTo?.name
-
+      newTask.dueDateDisplayed = newTaskDuedate ? fDate(newTaskDuedate) : "";
       state.tasksById[newTask._id] = newTask;
       state.currentPageTasks.unshift(newTask._id);
     },
@@ -81,7 +82,7 @@ const slice = createSlice({
 });
 
 export const createTask =
-  ({ title, description, inProject, status, priority }) =>
+  ({ title, description, inProject, status, priority, dueDate }) =>
   async (dispatch: any) => {
     // middleware
 
@@ -93,6 +94,7 @@ export const createTask =
         inProject,
         status,
         priority,
+        dueDate,
       });
       dispatch(slice.actions.createTaskSuccess(response.data.data));
       // response.xxx is the action.payload
