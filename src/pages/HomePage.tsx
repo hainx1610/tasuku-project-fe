@@ -9,7 +9,7 @@ import {
   getProjectsByUser,
   getSingleProject,
 } from "@/app/features/project/projectSlice";
-import TaskTable from "@/app/features/task/taskTable";
+import TaskTable from "@/app/features/task/TaskTable";
 
 import { columns, statusValue } from "@/app/features/task/taskColumns";
 import { DataTable } from "@/components/ui/data-table";
@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import TaskCreateSheet from "@/app/features/task/TaskCreateSheet";
 import ProjectCreateForm from "@/app/features/project/ProjectCreateForm";
 import LoadingScreen from "@/components/LoadingScreen";
+
+import ProjectMemberList from "@/app/features/project/ProjectMemberList";
 
 function HomePage() {
   const { user } = useAuth();
@@ -90,14 +92,21 @@ function HomePage() {
 
         {/* {userMemberOf.map((tabscontent) => ( */}
         {projects.map((tabscontent) => (
-          <TabsContent value={tabscontent.name} key={tabscontent._id}>
+          <TabsContent
+            value={tabscontent.name}
+            key={tabscontent._id}
+            className="flex flex-col  justify-start items-center space-y-5"
+          >
             {tabscontent.description}
             {}
             <TaskTable
             // data={selectedProject ? selectedProject.includeTasks : []}
             />
 
-            <TaskCreateSheet />
+            <div className="flex flex-col w-32 space-y-5">
+              <TaskCreateSheet />
+              <ProjectMemberList />
+            </div>
           </TabsContent>
         ))}
 

@@ -52,6 +52,13 @@ const slice = createSlice({
           state.currentProjects.push(project._id);
       });
     },
+
+    editProjectSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+
+      state.selectedProject.includeMembers = action.payload.includeMembers;
+    },
   },
 });
 
@@ -97,5 +104,22 @@ export const getProjectsByUser = (userId) => async (dispatch) => {
     toast.error(error.message);
   }
 };
+
+export const editProject =
+  ({ addedMemberId, projectId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.put(`/projects/${projectId}`, {
+        addedMemberId,
+      });
+      // console.log(response);
+      dispatch(slice.actions.editProjectSuccess(response.data.data));
+      toast.success("Your project has been updated.");
+    } catch (error: any) {
+      dispatch(slice.actions.hasError(error.message));
+      toast.error(error.message);
+    }
+  };
 
 export default slice.reducer;

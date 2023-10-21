@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
 import { editTask } from "./taskSlice";
 
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -47,10 +47,8 @@ const formSchema = z.object({
 
 function TaskEditForm({ task }) {
   const dispatch = useDispatch();
-  // const { selectedTask } = useSelector((state) => state.task);
-  // console.log(selectedTask, "selectedtask");
-  console.log(task.dueDate, "taskduedate");
-  // 1. Define your form.
+
+  // 1. Define form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,21 +57,12 @@ function TaskEditForm({ task }) {
       status: task?.status || "",
       priority: task?.priority || "",
       dueDate: task.dueDate ? new Date(task?.dueDate) : undefined,
-      // title: selectedTask?.name || "",
-      // description: selectedTask?.description || "",
-      // status: selectedTask?.status || "",
-      // priority: selectedTask?.priority || "",
     },
   });
 
-  // 2. Define a submit handler.
-
+  // 2. Define a submit handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     // console.log(values);
-    // dispatch here!
-
     dispatch(editTask({ ...values, taskId: task._id })).then(() =>
       form.reset()
     );
