@@ -20,10 +20,12 @@ import {
 import TaskEditSheet from "@/app/features/task/TaskEditSheet";
 import { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { editTask } from "@/app/features/task/taskSlice";
+import { editTask, getSingleTask } from "@/app/features/task/taskSlice";
 import { statuses } from "@/app/features/task/taskProperties";
 import useAuth from "@/hooks/useAuth";
 import { getUsersByProject } from "@/app/features/user/userSlice";
+
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 // import { labels } from "../../app/features/task/taskProperties";
 // import { taskSchema } from "../data/schema";
@@ -47,18 +49,6 @@ export function DataTableRowActions<TData>({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // const [assigneeId, setAssigneeId] = useState(task.assignedTo?._id);
-  // const handleAssigneeOnChange = (e) => {
-  //   console.log(e.target, "etarget");
-  //   // setAssigneeId(e.target);
-  //   // dispatch(
-  //   //   editTask({
-  //   //     assignedTo: assigneeId,
-  //   //     taskId: task._id,
-  //   //   })
-  //   // );
-  // };
-
   const { selectedProject } = useSelector(
     (state) => state.project,
     shallowEqual
@@ -76,6 +66,8 @@ export function DataTableRowActions<TData>({
   }, [dispatch, projectId]);
 
   const members = currentUsers.map((userId) => usersById[userId]);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -99,6 +91,22 @@ export function DataTableRowActions<TData>({
           >
             Edit
           </DropdownMenuItem>
+
+          <RouterLink
+            to={`/tasks/${task._id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/tasks/${task._id}`);
+            }}
+          >
+            <DropdownMenuItem
+              onClick={async () => {
+                dispatch(getSingleTask(task._id));
+              }}
+            >
+              Details...
+            </DropdownMenuItem>
+          </RouterLink>
 
           <DropdownMenuSeparator />
 
@@ -133,11 +141,7 @@ export function DataTableRowActions<TData>({
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>Assign to</DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
-              <DropdownMenuRadioGroup
-                // value={task.assignedTo?._id}
-                value={task.assignedTo?._id}
-                // onValueChange={(e) => handleAssigneeOnChange(e)}
-              >
+              <DropdownMenuRadioGroup value={task.assignedTo?._id}>
                 {members.map((member) => (
                   <DropdownMenuRadioItem
                     key={member._id}

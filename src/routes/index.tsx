@@ -8,6 +8,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import AuthRequire from "./AuthRequire";
+import TaskDetails from "@/app/features/task/TaskDetails";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       >
         <Route index element={<HomePage />} />
         <Route path="account" element={<AccountPage />} />
+        <Route path="tasks/:taskId" element={<TaskDetails />} />
       </Route>
 
       <Route element={<BlankLayout />}>
