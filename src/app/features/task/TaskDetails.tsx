@@ -18,13 +18,18 @@ function TaskDetails() {
 
   useEffect(() => {
     if (taskId) {
+      console.log(taskId, "taskId");
       dispatch(getSingleTask(taskId));
     }
   }, [dispatch, taskId]);
 
   return (
     <div className="container mx-auto py-10">
-      {isLoading ? <LoadingScreen /> : selectedTask.name + selectedTask._id}
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <span>{`${selectedTask?.name}  ${selectedTask?._id}  ${selectedTask?.assignedTo?.name}`}</span>
+      )}
     </div>
   );
 }
