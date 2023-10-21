@@ -81,6 +81,26 @@ export const columns: ColumnDef<TTask>[] = [
     // enableHiding: false,
   },
   {
+    accessorKey: "dueDateDisplayed",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Due date" />
+    ),
+    cell: ({ row }) => {
+      // const label = labels.find((label) => label.value === row.original.label);
+
+      return (
+        <div className="flex space-x-2">
+          {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("dueDateDisplayed")}
+          </span>
+        </div>
+      );
+    },
+    // enableSorting: false,
+    // enableHiding: false,
+  },
+  {
     accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />

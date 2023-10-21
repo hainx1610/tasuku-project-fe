@@ -38,6 +38,17 @@ export function DataTableViewOptions<TData>({
               typeof column.accessorFn !== "undefined" && column.getCanHide()
           )
           .map((column) => {
+            let columnTitle = column.id;
+            if (column.id === "name") {
+              columnTitle = "Title";
+            }
+            if (column.id === "assigneeName") {
+              columnTitle = "Assignee";
+            }
+            if (column.id === "dueDateDisplayed") {
+              columnTitle = "Due date";
+            }
+
             return (
               <DropdownMenuCheckboxItem
                 key={column.id}
@@ -45,7 +56,8 @@ export function DataTableViewOptions<TData>({
                 checked={column.getIsVisible()}
                 onCheckedChange={(value) => column.toggleVisibility(!!value)}
               >
-                {column.id}
+                {/* {column.id} */}
+                {columnTitle}
               </DropdownMenuCheckboxItem>
             );
           })}
