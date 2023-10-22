@@ -73,10 +73,16 @@ const slice = createSlice({
       state.tasksById[action.payload._id].description = description;
       state.tasksById[action.payload._id].status = status;
       state.tasksById[action.payload._id].priority = priority;
-      state.tasksById[action.payload._id].assignedTo = assignedTo;
-      state.tasksById[action.payload._id].assigneeName = assignedTo.name;
-      state.tasksById[action.payload._id].dueDate = dueDate;
-      state.tasksById[action.payload._id].dueDateDisplayed = fDate(dueDate);
+      state.tasksById[action.payload._id].assignedTo = assignedTo
+        ? assignedTo
+        : undefined;
+      state.tasksById[action.payload._id].assigneeName = assignedTo?.name;
+      state.tasksById[action.payload._id].dueDate = dueDate
+        ? dueDate
+        : undefined;
+      state.tasksById[action.payload._id].dueDateDisplayed = dueDate
+        ? fDate(dueDate)
+        : undefined;
     },
   },
 });
@@ -133,12 +139,12 @@ export const getTasksByProject = (taskId) => async (dispatch) => {
 };
 
 export const editTask =
-  ({ title, description, status, priority, taskId, assignedTo, dueDate }) =>
+  ({ description, status, priority, taskId, assignedTo, dueDate }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await apiService.put(`/tasks/${taskId}`, {
-        name: title,
+        // name: title,
         description,
         status,
         priority,
@@ -148,7 +154,7 @@ export const editTask =
       // console.log(response);
       dispatch(slice.actions.editTaskSuccess(response.data.data));
       toast.success("Your task has been updated.");
-    } catch (error) {
+    } catch (error: any) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);
     }

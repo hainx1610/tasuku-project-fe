@@ -36,7 +36,7 @@ function ProjectMemberList() {
   );
 
   useEffect(() => {
-    if (selectedProject._id) dispatch(getUsersByProject(selectedProject._id));
+    if (selectedProject?._id) dispatch(getUsersByProject(selectedProject._id));
   }, [dispatch, selectedProject]);
 
   useEffect(() => {

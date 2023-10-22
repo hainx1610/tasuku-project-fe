@@ -28,7 +28,7 @@ function TaskDetails() {
       {isLoading ? (
         <LoadingScreen />
       ) : (
-        <span>{`${selectedTask?.name}  ${selectedTask?._id}  ${selectedTask?.assignedTo?.name}`}</span>
+        <span>{`${selectedTask?.name} ${selectedTask?.description}  ${selectedTask?._id}  ${selectedTask?.assignedTo?.name}`}</span>
       )}
     </div>
   );
