@@ -21,7 +21,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Info, AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   email: z
@@ -65,13 +67,28 @@ function LoginPage() {
     } catch (error) {
       // console.log(error);
       form.reset();
-      toast.error(error);
+      form.setError("responseError", error);
     }
     // console.log(values);
   }
 
   return (
     <Form {...form}>
+      {!!form.formState.errors.responseError && (
+        <Alert variant="destructive" className="w-80 my-2 pb-2">
+          <AlertCircle className="h-4 w-4" />
+
+          <AlertDescription>
+            {form.formState.errors.responseError.message}
+          </AlertDescription>
+        </Alert>
+      )}
+      <Alert className="w-80 my-2 pb-2 mb-5">
+        <Info className="h-4 w-4" />
+        {/* <AlertTitle>Don't have an account? Get Started</AlertTitle> */}
+        <AlertDescription>Don't have an account? Get Started</AlertDescription>
+      </Alert>
+
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}

@@ -83,7 +83,7 @@ export const columns: ColumnDef<TTask>[] = [
   {
     accessorKey: "dueDateDisplayed",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Due date" />
+      <DataTableColumnHeader column={column} title="Due Date" />
     ),
     cell: ({ row }) => {
       // const label = labels.find((label) => label.value === row.original.label);

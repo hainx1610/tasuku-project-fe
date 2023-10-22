@@ -163,7 +163,7 @@ function TaskCreateForm({ setIsOpen }) {
           name="dueDate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Due date</FormLabel>
+              <FormLabel>Due Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>

@@ -47,7 +47,7 @@ function UserPasswordChangeForm() {
         navigate("/login");
       });
     } catch (error) {
-      console.error(error);
+      toast.error(error);
     }
   };
 

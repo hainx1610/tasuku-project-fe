@@ -1,3 +1,4 @@
+import AlertMsg from "@/components/AlertMsg";
 import Logo from "../components/Logo";
 import React from "react";
 import { Outlet } from "react-router-dom";

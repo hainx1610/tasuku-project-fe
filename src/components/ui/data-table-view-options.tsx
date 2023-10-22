@@ -46,7 +46,7 @@ export function DataTableViewOptions<TData>({
               columnTitle = "Assignee";
             }
             if (column.id === "dueDateDisplayed") {
-              columnTitle = "Due date";
+              columnTitle = "Due Date";
             }
 
             return (
