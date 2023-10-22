@@ -31,7 +31,9 @@ const slice = createSlice({
       const newTask = action.payload;
       const newTaskDuedate = action.payload.dueDate;
       // newTask.assigneeName = action.payload.assignedTo?.name
-      newTask.dueDateDisplayed = newTaskDuedate ? fDate(newTaskDuedate) : "";
+      newTask.dueDateDisplayed = newTaskDuedate
+        ? fDate(newTaskDuedate)
+        : undefined;
       state.tasksById[newTask._id] = newTask;
       state.currentPageTasks.unshift(newTask._id);
     },
@@ -45,8 +47,8 @@ const slice = createSlice({
       state.error = null;
       const tasks = action.payload;
       tasks.forEach((task) => {
-        const assigneeName = task.assignedTo ? task.assignedTo.name : "";
-        const dueDateDisplayed = task.dueDate ? fDate(task.dueDate) : "";
+        const assigneeName = task.assignedTo ? task.assignedTo.name : undefined;
+        const dueDateDisplayed = task.dueDate ? fDate(task.dueDate) : undefined;
         const taskEnhanced = {
           ...task,
           assigneeName,
@@ -83,6 +85,16 @@ const slice = createSlice({
       state.tasksById[action.payload._id].dueDateDisplayed = dueDate
         ? fDate(dueDate)
         : undefined;
+    },
+
+    deleteTaskSuccess(state, action) {
+      state.isLoading = false;
+      state.error = null;
+      //action.payload here is not from res but from req
+      state.currentPageTasks = state.currentPageTasks.filter(
+        (taskId) => taskId !== action.payload
+      );
+      delete state.tasksById[action.payload];
     },
   },
 });
@@ -159,5 +171,17 @@ export const editTask =
       toast.error(error.message);
     }
   };
+
+export const deleteTask = (deleteTaskId) => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    await apiService.delete(`tasks/${deleteTaskId}`);
+    dispatch(slice.actions.deleteTaskSuccess(deleteTaskId));
+    toast.success("Task deleted.");
+  } catch (error: any) {
+    dispatch(slice.actions.hasError(error.message));
+    toast.error(error.message);
+  }
+};
 
 export default slice.reducer;

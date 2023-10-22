@@ -20,7 +20,11 @@ import {
 import TaskEditSheet from "@/app/features/task/TaskEditSheet";
 import { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { editTask, getSingleTask } from "@/app/features/task/taskSlice";
+import {
+  deleteTask,
+  editTask,
+  getSingleTask,
+} from "@/app/features/task/taskSlice";
 import { statuses } from "@/app/features/task/taskProperties";
 import useAuth from "@/hooks/useAuth";
 import { getUsersByProject } from "@/app/features/user/userSlice";
@@ -170,9 +174,13 @@ export function DataTableRowActions<TData>({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={async () => {
+              dispatch(deleteTask(task._id));
+            }}
+          >
             Delete
-            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+            {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
