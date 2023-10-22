@@ -3,12 +3,14 @@ import taskReducer from "./features/task/taskSlice";
 import userReducer from "./features/user/userSlice";
 import projectReducer from "./features/project/projectSlice";
 import invitationReducer from "./features/invitation/invitationSlice";
+import commentReducer from "./features/comment/commentSlice";
 
 const rootReducer = {
   task: taskReducer,
   user: userReducer,
   project: projectReducer,
   invitation: invitationReducer,
+  comment: commentReducer,
 };
 
 const store = configureStore({

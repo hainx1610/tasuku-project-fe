@@ -143,7 +143,7 @@ function RegisterPage() {
                 <FormControl>
                   <Input
                     type={showPassword ? "text" : "password"}
-                    placeholder="******"
+                    placeholder="*********"
                     {...field}
                   ></Input>
                 </FormControl>
@@ -167,7 +167,7 @@ function RegisterPage() {
                 <FormControl>
                   <Input
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Enter password again"
+                    placeholder="*********"
                     {...field}
                   ></Input>
                 </FormControl>
