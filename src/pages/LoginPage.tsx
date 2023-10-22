@@ -21,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
+import { toast } from "react-toastify";
 
 const formSchema = z.object({
   email: z
@@ -52,7 +53,6 @@ function LoginPage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const from = location.state?.from?.pathname || "/";
     const { email, password } = values;
 
@@ -65,7 +65,7 @@ function LoginPage() {
     } catch (error) {
       // console.log(error);
       form.reset();
-      console.log(error);
+      toast.error(error);
     }
     // console.log(values);
   }

@@ -78,7 +78,12 @@ function TaskEditForm({ task }) {
             <FormItem>
               <FormLabel>title</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your title" {...field} />
+                <Input
+                  className="disabled:opacity-100"
+                  disabled={true}
+                  placeholder="Enter your title"
+                  {...field}
+                />
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />

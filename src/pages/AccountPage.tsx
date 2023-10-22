@@ -12,10 +12,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useAuth from "@/hooks/useAuth";
+import UserPasswordChangeForm from "@/app/features/user/userPasswordChangeForm";
 
 function AccountPage() {
+  const { user } = useAuth();
+
   return (
-    <Tabs defaultValue="account" className=" self-center w-80">
+    <Tabs defaultValue="password" className=" self-center w-80">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="account">Account</TabsTrigger>
         <TabsTrigger value="password">Password</TabsTrigger>
@@ -24,23 +28,33 @@ function AccountPage() {
         <Card>
           <CardHeader>
             <CardTitle>Account</CardTitle>
-            <CardDescription>
+            {/* <CardDescription>
               Make changes to your account here. Click save when you're done.
-            </CardDescription>
+            </CardDescription> */}
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="space-y-1">
+            <div className="space-y-2 flex flex-col items-start ">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte" />
+              <Input
+                className="disabled:opacity-100 text-center"
+                disabled={true}
+                id="name"
+                defaultValue={user!.name}
+              />
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" />
+            <div className="space-y-2 flex flex-col items-start ">
+              <Label htmlFor="role">Role</Label>
+              <Input
+                className="disabled:opacity-100 text-center"
+                disabled={true}
+                id="role"
+                defaultValue={user!.role}
+              />
             </div>
           </CardContent>
-          <CardFooter>
+          {/* <CardFooter>
             <Button>Save changes</Button>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       </TabsContent>
       <TabsContent value="password">
@@ -52,18 +66,19 @@ function AccountPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               <Label htmlFor="current">Current password</Label>
               <Input id="current" type="password" />
             </div>
             <div className="space-y-1">
               <Label htmlFor="new">New password</Label>
               <Input id="new" type="password" />
-            </div>
+            </div> */}
+            <UserPasswordChangeForm />
           </CardContent>
-          <CardFooter>
+          {/* <CardFooter>
             <Button>Save password</Button>
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       </TabsContent>
     </Tabs>
