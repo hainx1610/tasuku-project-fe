@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as Yup from "yup";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link as RouterLink } from "react-router-dom";
 // import FormProvider from "@/components/form/FormProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -22,8 +22,8 @@ import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 // import { toast } from "react-toastify";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info, ShieldAlert } from "lucide-react";
 
 const formSchema = z.object({
   email: z
@@ -75,18 +75,30 @@ function LoginPage() {
   return (
     <Form {...form}>
       {!!form.formState.errors.responseError && (
-        <Alert variant="destructive" className="w-80 my-2 pb-2">
-          <AlertCircle className="h-4 w-4" />
+        <Alert variant="destructive" className="w-70 my-2 pb-2">
+          <ShieldAlert className="h-4 w-4" />
 
           <AlertDescription>
             {form.formState.errors.responseError.message}
           </AlertDescription>
         </Alert>
       )}
-      <Alert className="w-80 my-2 pb-2 mb-5">
+      <Alert className="w-70 my-2 pb-2 mb-5">
         <Info className="h-4 w-4" />
         {/* <AlertTitle>Don't have an account? Get Started</AlertTitle> */}
-        <AlertDescription>Don't have an account? Get Started</AlertDescription>
+        <AlertDescription>
+          {"Don't have an account? "}
+          <RouterLink
+            className=" text-green-600 hover:underline"
+            to={"/register"}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/register");
+            }}
+          >
+            Sign Up
+          </RouterLink>
+        </AlertDescription>
       </Alert>
 
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -116,7 +128,7 @@ function LoginPage() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     {...field}
-                  />
+                  ></Input>
                 </FormControl>
                 <Toggle onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}

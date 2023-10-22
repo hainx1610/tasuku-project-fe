@@ -152,7 +152,16 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     { name, email, password }: TRegisterObj,
     callback: () => void
   ) => {
-    const response = await apiService.post("/users", { name, email, password });
+    const response = await apiService.post(
+      "/users",
+      {
+        name,
+        email,
+        password,
+        role: "manager",
+      },
+      { withCredentials: true }
+    );
     const { user, accessToken } = response.data.data;
 
     // save accessToken to apiService for future use after login

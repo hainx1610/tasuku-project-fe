@@ -1,11 +1,10 @@
-import AlertMsg from "@/components/AlertMsg";
 import Logo from "../components/Logo";
-import React from "react";
+
 import { Outlet } from "react-router-dom";
 
 function BlankLayout() {
   return (
-    <div className=" flex flex-col justify-center items-center min-h-screen">
+    <div className=" flex flex-col justify-center items-center min-h-screen space-y-5">
       <Logo />
 
       <Outlet />

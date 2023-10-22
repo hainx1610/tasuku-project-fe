@@ -22,8 +22,11 @@ interface TUser {
   role: string;
 }
 
-type TLoginObj = Omit<TUser, "name" | "responsibleFor" | "memberOf" | "role">;
-type TRegisterObj = Omit<TUser, "responsibleFor" | "memberOf" | "role">;
+type TLoginObj = Omit<
+  TUser,
+  "name" | "responsibleFor" | "memberOf" | "role" | "_id"
+>;
+type TRegisterObj = Omit<TUser, "responsibleFor" | "memberOf" | "role" | "_id">;
 
 interface TAuthState {
   isInitialized: boolean;
