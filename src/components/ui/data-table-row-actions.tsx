@@ -69,7 +69,11 @@ export function DataTableRowActions<TData>({
     if (projectId) dispatch(getUsersByProject(projectId));
   }, [dispatch, projectId]);
 
-  const members = currentUsers.map((userId) => usersById[userId]);
+  const currentMembers = currentUsers.map((userId) => usersById[userId]);
+  const members =
+    user!.role === "manager"
+      ? currentMembers
+      : currentMembers.filter((member) => member._id === user._id);
 
   const navigate = useNavigate();
 
@@ -87,14 +91,16 @@ export function DataTableRowActions<TData>({
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem
-            onClick={async () => {
-              // dispatch(getSingleTask(task._id));
-              setIsOpen(true);
-            }}
-          >
-            Edit
-          </DropdownMenuItem>
+          {user!.role === "manager" && (
+            <DropdownMenuItem
+              onClick={async () => {
+                // dispatch(getSingleTask(task._id));
+                setIsOpen(true);
+              }}
+            >
+              Edit
+            </DropdownMenuItem>
+          )}
 
           <RouterLink
             to={`/tasks/${task._id}`}
@@ -174,14 +180,16 @@ export function DataTableRowActions<TData>({
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onClick={async () => {
-              dispatch(deleteTask(task._id));
-            }}
-          >
-            Delete
-            {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
+          {user!.role === "manager" && (
+            <DropdownMenuItem
+              onClick={async () => {
+                dispatch(deleteTask(task._id));
+              }}
+            >
+              Delete
+              {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
 

@@ -76,8 +76,9 @@ function HomePage() {
           )}
 
           <Separator className="my-3" />
-
-          <TabsTrigger value="create-project">+ New Project</TabsTrigger>
+          {user!.role === "manager" && (
+            <TabsTrigger value="create-project">+ New Project</TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="welcome">

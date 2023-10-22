@@ -9,6 +9,7 @@ interface TTask {
   _id: string;
   name: string;
   description: string;
+  assignedTo: string | undefined;
 }
 
 interface TUser {

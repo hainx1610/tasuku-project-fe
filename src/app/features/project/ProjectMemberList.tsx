@@ -62,7 +62,9 @@ function ProjectMemberList() {
         <DropdownMenuSeparator />
 
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Add Member</DropdownMenuSubTrigger>
+          {user!.role === "manager" && (
+            <DropdownMenuSubTrigger>Add Member</DropdownMenuSubTrigger>
+          )}
           <DropdownMenuSubContent>
             <DropdownMenuRadioGroup value="">
               {allUsers.map((each) => (
