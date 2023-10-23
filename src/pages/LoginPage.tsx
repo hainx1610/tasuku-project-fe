@@ -31,9 +31,12 @@ const formSchema = z.object({
       required_error: "Email is required",
     })
     .email("Not a valid email"),
-  password: z.string({
-    required_error: "Password is required",
-  }),
+  password: z
+    .string({
+      required_error: "Password is required",
+    })
+    .trim()
+    .min(1, { message: "Password is required" }),
 });
 
 function LoginPage() {

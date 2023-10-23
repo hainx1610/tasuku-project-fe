@@ -38,8 +38,12 @@ import {
 } from "@/components/ui/popover";
 
 const formSchema = z.object({
-  title: z.string({ required_error: "Task title is required" }),
-  description: z.string({ required_error: "Task description is required" }),
+  title: z
+    .string({ required_error: "Task title is required" })
+    .min(1, { message: "Task title is required" }),
+  description: z
+    .string({ required_error: "Task description is required" })
+    .min(1, { message: "Task description is required" }),
   status: z.string().optional(),
   priority: z.string().optional(),
   dueDate: z.date().optional(),

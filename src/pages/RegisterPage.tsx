@@ -24,7 +24,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 // import { toast } from "react-toastify";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info, ShieldAlert } from "lucide-react";
+import { ShieldAlert } from "lucide-react";
 
 const formSchema = z
   .object({
@@ -33,12 +33,18 @@ const formSchema = z
         required_error: "Email is required",
       })
       .email("Not a valid email"),
-    name: z.string({
-      required_error: "Name is required",
-    }),
-    password: z.string({
-      required_error: "Password is required",
-    }),
+    name: z
+      .string({
+        required_error: "Name is required",
+      })
+      .trim()
+      .min(1, { message: "Name is required" }),
+    password: z
+      .string({
+        required_error: "Password is required",
+      })
+      .trim()
+      .min(1, { message: "Password is required" }),
     confirmPassword: z.string({
       required_error: "Password needs to be confirmed",
     }),

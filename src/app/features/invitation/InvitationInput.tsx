@@ -24,9 +24,11 @@ const formSchema = z.object({
       required_error: "Email is required",
     })
     .email("Not a valid email"),
-  name: z.string({
-    required_error: "name is required",
-  }),
+  name: z
+    .string({
+      required_error: "name is required",
+    })
+    .min(1, { message: "Name is required" }),
 });
 
 function InvitationInput() {

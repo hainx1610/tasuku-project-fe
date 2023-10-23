@@ -4,13 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import {
   Form,
   FormControl,
@@ -25,8 +19,12 @@ import { useDispatch } from "react-redux";
 import { createProject } from "./projectSlice";
 
 const formSchema = z.object({
-  title: z.string({ required_error: "Task title is required" }),
-  description: z.string({ required_error: "Task description is required" }),
+  title: z
+    .string({ required_error: "Task title is required" })
+    .min(1, { message: "Task title is required" }),
+  description: z
+    .string({ required_error: "Task description is required" })
+    .min(1, { message: "Task description is required" }),
   status: z.string().optional(),
   priority: z.string().optional(),
 });
