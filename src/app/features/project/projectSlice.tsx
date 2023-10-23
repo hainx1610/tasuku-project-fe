@@ -24,6 +24,11 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
+    resetProjects(state) {
+      state.projectsById = {}; // empty obj
+      state.currentProjects = []; // empty array
+    },
+
     createProjectSuccess(state, action) {
       state.isLoading = false;
       state.error = null;
@@ -96,6 +101,7 @@ export const getProjectsByUser = (userId) => async (dispatch) => {
   try {
     const response = await apiService.get(`/projects/users/${userId}`);
 
+    dispatch(slice.actions.resetProjects());
     dispatch(slice.actions.getProjectsByUserSuccess(response.data.data));
 
     // response.xxx is the action.payload
