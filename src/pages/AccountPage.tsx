@@ -1,12 +1,12 @@
-import LoadingScreen from "@/components/LoadingScreen";
+// import LoadingScreen from "@/components/LoadingScreen";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
+  // CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -19,8 +19,11 @@ function AccountPage() {
   const { user } = useAuth();
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
-      <Tabs defaultValue="password" className=" self-center w-80 ">
+    <div className="flex flex-col justify-center h-full">
+      <Tabs
+        defaultValue="password"
+        className=" absolute top-1/4 self-center w-80 "
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="password">Password</TabsTrigger>

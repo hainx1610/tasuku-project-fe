@@ -22,8 +22,12 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
 const formSchema = z.object({
-  currentPassword: z.string({ required_error: "Current password is required" }),
-  newPassword: z.string({ required_error: "Task newPassword is required" }),
+  currentPassword: z
+    .string({ required_error: "Current password is required" })
+    .min(1, { message: "Password is required" }),
+  newPassword: z
+    .string({ required_error: "New password is required" })
+    .min(1, { message: "New password is required" }),
 });
 
 function UserPasswordChangeForm() {
