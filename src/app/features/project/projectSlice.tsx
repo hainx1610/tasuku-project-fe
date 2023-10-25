@@ -77,6 +77,7 @@ export const createProject =
         description,
       });
       dispatch(slice.actions.createProjectSuccess(response.data.data));
+      toast.success("Your project has been created.");
     } catch (error: any) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);

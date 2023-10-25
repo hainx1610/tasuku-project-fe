@@ -116,6 +116,7 @@ export const createTask =
       });
       dispatch(slice.actions.createTaskSuccess(response.data.data));
       // response.xxx is the action.payload
+      toast.success("Your task has been created.");
     } catch (error: any) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);
