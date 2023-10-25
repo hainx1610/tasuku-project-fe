@@ -40,6 +40,8 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { useDispatch, useSelector } from "react-redux";
 import { getProjectsByUser } from "@/app/features/project/projectSlice";
 import { Button } from "@/components/ui/button";
+import ProjectCreateForm from "@/app/features/project/ProjectCreateForm";
+import InvitationInput from "@/app/features/invitation/InvitationInput";
 
 function MainHeader() {
   const { user, logout } = useAuth();
@@ -101,7 +103,28 @@ function MainHeader() {
             <SheetTrigger>
               <Menu size={30} />
             </SheetTrigger>
-            <SheetContent side={"left"} className="flex flex-col">
+            <SheetContent
+              side={"left"}
+              className="flex flex-col w-50 absolute top-16 bottom-16 h-[88.7vh] shadow-none"
+            >
+              {userRole === "manager" && (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant={"ghost"}>Invite</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Create an invitation</DialogTitle>
+                      <DialogDescription>
+                        Invite someone to the app as an employee with limited
+                        access.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <InvitationInput />
+                  </DialogContent>
+                </Dialog>
+              )}
+              <Separator />
               <div className="flex flex-col">
                 {isLoading ? (
                   <LoadingScreen />
@@ -119,22 +142,23 @@ function MainHeader() {
                 )}
               </div>
 
-              <Separator />
-
-              <Dialog>
-                <DialogTrigger>Open</DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-                    <DialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
+              {userRole === "manager" && (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant={"ghost"}>+ New Project</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Create a new project</DialogTitle>
+                    </DialogHeader>
+                    <ProjectCreateForm />
+                  </DialogContent>
+                </Dialog>
+              )}
             </SheetContent>
           </Sheet>
+        </div>
+        <div className="left-[48%] absolute">
           <Logo />
         </div>
 

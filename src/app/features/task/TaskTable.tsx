@@ -51,7 +51,7 @@ export default function TaskTable() {
         <LoadingScreen />
       ) : (
         <div>
-          <div>{selectedProject?.description}</div>
+          <h4>{selectedProject?.description}</h4>
           <DataTable
             columns={columns}
             // data={selectedProject ? selectedProject.includeTasks : []}

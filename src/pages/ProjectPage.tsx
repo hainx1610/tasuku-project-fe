@@ -58,8 +58,14 @@ export default function ProjectPage() {
       {isLoading ? (
         <LoadingScreen />
       ) : (
-        <div>
-          <div>{selectedProject?.description}</div>
+        <div className="flex flex-col justify-center items-center space-y-8">
+          <h2 className="scroll-m-20  text-3xl font-semibold tracking-tight first:mt-0">
+            {selectedProject?.name}
+          </h2>
+
+          <h4 className="scroll-m-20 text-slate-500 text-xl font-semibold tracking-tight">
+            {selectedProject?.description}
+          </h4>
           <DataTable
             columns={columns}
             // data={selectedProject ? selectedProject.includeTasks : []}
