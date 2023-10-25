@@ -32,7 +32,12 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div className={cn("flex items-center space-x-2", className)}>
+    <div
+      className={cn(
+        "flex items-center space-x-2 w-8 md:w-20 lg:w-36",
+        className
+      )}
+    >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -40,7 +45,7 @@ export function DataTableColumnHeader<TData, TValue>({
             size="sm"
             className="-ml-3 h-8 data-[state=open]:bg-accent"
           >
-            <span>{title}</span>
+            <span className=" text-xs md:text-base">{title}</span>
             {column.getIsSorted() === "desc" ? (
               <ArrowDownIcon className="ml-2 h-4 w-4" />
             ) : column.getIsSorted() === "asc" ? (

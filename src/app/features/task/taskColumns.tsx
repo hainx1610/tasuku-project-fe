@@ -51,7 +51,7 @@ export const columns: ColumnDef<TTask>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2 w-64 ">
+        <div className="flex space-x-2 w-10 md:w-64 ">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("name")}
@@ -69,7 +69,7 @@ export const columns: ColumnDef<TTask>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 w-5 md:w-16 ">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("assigneeName")}
@@ -83,13 +83,13 @@ export const columns: ColumnDef<TTask>[] = [
   {
     accessorKey: "dueDateDisplayed",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Due Date" />
+      <DataTableColumnHeader column={column} title="Deadline" />
     ),
     cell: ({ row }) => {
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 w-10 md:w-24">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("dueDateDisplayed")}
@@ -115,11 +115,11 @@ export const columns: ColumnDef<TTask>[] = [
       }
 
       return (
-        <div className="flex w-[100px] items-center">
+        <div className="flex  items-center w-5 md:w-28">
           {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span>{status.label}</span>
+          <span className="hidden md:inline">{status.label}</span>
         </div>
       );
     },
@@ -130,7 +130,7 @@ export const columns: ColumnDef<TTask>[] = [
   {
     accessorKey: "priority",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      <DataTableColumnHeader column={column} title={"Priority"} />
     ),
     cell: ({ row }) => {
       const priority = priorities.find(
@@ -142,11 +142,11 @@ export const columns: ColumnDef<TTask>[] = [
       }
 
       return (
-        <div className="flex items-center">
+        <div className="flex items-center w-5 md:w-28">
           {priority.icon && (
             <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span>{priority.label}</span>
+          <span className="hidden md:inline">{priority.label}</span>
         </div>
       );
     },
