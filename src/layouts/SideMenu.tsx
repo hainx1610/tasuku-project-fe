@@ -52,11 +52,11 @@ function SideMenu() {
       </SheetTrigger>
       <SheetContent
         side={"left"}
-        className="flex flex-col md:w-[160px]  absolute top-16 bottom-16 h-[88.7vh] shadow-none w-screen"
+        className="flex flex-col md:w-[160px] bg-slate-600 shadow-none w-screen h-screen  "
       >
         {userRole === "manager" && (
           <Dialog>
-            <DialogTrigger asChild>
+            <DialogTrigger asChild className="mt-5">
               <Button variant={"ghost"}>Invite</Button>
             </DialogTrigger>
             <DialogContent>
@@ -70,7 +70,7 @@ function SideMenu() {
             </DialogContent>
           </Dialog>
         )}
-        <Separator />
+        <Separator className="bg-primary" />
         <div className="flex flex-col">
           {isLoading ? (
             <LoadingScreen />

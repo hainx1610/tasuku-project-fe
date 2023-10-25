@@ -99,7 +99,7 @@ function MainHeader() {
 
   return (
     <>
-      <Menubar className="flex justify-between border-none  rounded-none h-15 mt-1 ">
+      <Menubar className="flex justify-between border-none bg-secondary  rounded-none h-15 mt-1 ">
         <div className="flex justify-center space-x-2 items-center w-20 ml-1">
           {/* <Sheet>
             <SheetTrigger>
