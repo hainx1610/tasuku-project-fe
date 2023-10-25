@@ -8,7 +8,8 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import AuthRequire from "./AuthRequire";
-import TaskDetails from "@/app/features/task/TaskDetails";
+import TaskDetails from "@/pages/TaskDetails";
+import ProjectPage from "@/pages/ProjectPage";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
         <Route index element={<HomePage />} />
         <Route path="account" element={<AccountPage />} />
         <Route path="tasks/:taskId" element={<TaskDetails />} />
+        <Route path="projects/:projectId" element={<ProjectPage />} />
       </Route>
 
       <Route element={<BlankLayout />}>

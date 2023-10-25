@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getSingleTask } from "./taskSlice";
+import { getSingleTask } from "../app/features/task/taskSlice";
 import LoadingScreen from "@/components/LoadingScreen";
 import {
   Card,
@@ -12,7 +12,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { createComment, getCommentsByTask } from "../comment/commentSlice";
+import {
+  createComment,
+  getCommentsByTask,
+} from "../app/features/comment/commentSlice";
 import { fDate } from "@/utils/formatTime";
 import { Button } from "@/components/ui/button";
 

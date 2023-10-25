@@ -20,11 +20,11 @@ import { createProject } from "./projectSlice";
 
 const formSchema = z.object({
   title: z
-    .string({ required_error: "Task title is required" })
-    .min(1, { message: "Task title is required" }),
+    .string({ required_error: "Project title is required" })
+    .min(1, { message: "Project title is required" }),
   description: z
-    .string({ required_error: "Task description is required" })
-    .min(1, { message: "Task description is required" }),
+    .string({ required_error: "Project description is required" })
+    .min(1, { message: "Project description is required" }),
   status: z.string().optional(),
   priority: z.string().optional(),
 });

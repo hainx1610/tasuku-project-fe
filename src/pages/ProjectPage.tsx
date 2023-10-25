@@ -5,12 +5,17 @@ import { DataTable } from "@/components/ui/data-table";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
-import { getTasksByProject } from "./taskSlice";
-import TaskCreateSheet from "./TaskCreateSheet";
-import ProjectMemberList from "../project/ProjectMemberList";
+import { getTasksByProject } from "@/app/features/task/taskSlice";
+import TaskCreateSheet from "@/app/features/task/TaskCreateSheet";
+import ProjectMemberList from "@/app/features/project/ProjectMemberList";
+import { useParams } from "react-router-dom";
+import { getSingleProject } from "@/app/features/project/projectSlice";
 
 // data = includeTasks arr
-export default function TaskTable() {
+export default function ProjectPage() {
+  const params = useParams();
+  const projectId = params.projectId;
+
   const dispatch = useDispatch();
 
   // const { selectedTask } = useSelector(
@@ -32,7 +37,7 @@ export default function TaskTable() {
     shallowEqual
   );
 
-  const projectId = selectedProject?._id;
+  //   const projectId = selectedProject?._id;
 
   const { tasksById, currentPageTasks, isLoading } = useSelector(
     (state) => state.task,
@@ -40,7 +45,10 @@ export default function TaskTable() {
   );
 
   useEffect(() => {
-    if (projectId) dispatch(getTasksByProject(projectId));
+    if (projectId) {
+      dispatch(getSingleProject(projectId));
+      dispatch(getTasksByProject(projectId));
+    }
   }, [dispatch, projectId]);
 
   const tasks = currentPageTasks.map((taskId) => tasksById[taskId]);
