@@ -69,7 +69,7 @@ function LoginPage() {
       });
     } catch (error) {
       // console.log(error);
-      form.reset();
+      // form.reset();
       form.setError("responseError", error);
     }
     // console.log(values);

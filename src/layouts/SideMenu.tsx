@@ -65,7 +65,7 @@ function SideMenu() {
                   <DialogTitle>Create an invitation</DialogTitle>
                   <DialogDescription>
                     Invite someone to the app as an employee with limited
-                    access.
+                    access. The process can take several minutes.
                   </DialogDescription>
                 </DialogHeader>
                 <InvitationInput />
