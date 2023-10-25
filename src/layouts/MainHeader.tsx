@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import Logo from "../components/Logo";
@@ -13,6 +13,10 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BellDot, Bell } from "lucide-react";
+import apiService from "@/app/apiService";
+import { Card } from "@/components/ui/card";
+import NotificationsCard from "@/app/features/notification/NofificationsCard";
 
 function MainHeader() {
   const { user, logout } = useAuth();
@@ -28,6 +32,19 @@ function MainHeader() {
   // const handleMenuClose = () => {
   //   setAnchorEl(null);
   // };
+
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const getNotifications = async () => {
+      const response = await apiService.get(
+        `/notifications/users/${user?._id}`
+      );
+      console.log(response.data.data, "response");
+      setNotifications(response.data.data);
+    };
+    getNotifications();
+  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -45,6 +62,24 @@ function MainHeader() {
     <Menubar className="flex">
       <Logo />
       <div className="grow"></div>
+
+      <MenubarMenu>
+        <MenubarTrigger>
+          {notifications.length ? (
+            <BellDot className="fill-red-400" />
+          ) : (
+            <Bell />
+          )}
+        </MenubarTrigger>
+        <MenubarContent>
+          {notifications.length ? (
+            <NotificationsCard notifications={notifications} />
+          ) : (
+            <span>No notifications at the moment.</span>
+          )}
+        </MenubarContent>
+      </MenubarMenu>
+
       <MenubarMenu>
         <MenubarTrigger>
           <Avatar>

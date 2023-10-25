@@ -82,8 +82,13 @@ function HomePage() {
         </TabsList>
 
         <TabsContent value="welcome">
-          <div>
-            Welcome back, {user!.name}. Choose a project to view your tasks.
+          <div className="p-6 ">
+            <h1 className=" scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              Welcome back, {user!.name}.
+            </h1>
+            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+              Choose a project to view your tasks.
+            </h4>
           </div>
         </TabsContent>
 
