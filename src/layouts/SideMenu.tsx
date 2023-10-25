@@ -1,7 +1,109 @@
-import React from "react";
+import useAuth from "@/hooks/useAuth";
+import React, { useEffect } from "react";
+import {
+  Sheet,
+  SheetContent,
+  // SheetDescription,
+  // SheetHeader,
+  // SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import LoadingScreen from "@/components/LoadingScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { getProjectsByUser } from "@/app/features/project/projectSlice";
+import { Button } from "@/components/ui/button";
+import ProjectCreateForm from "@/app/features/project/ProjectCreateForm";
+import InvitationInput from "@/app/features/invitation/InvitationInput";
+import { useNavigate } from "react-router-dom";
+import { Menu } from "lucide-react";
 
 function SideMenu() {
-  return <div>SideMenu</div>;
+  const { user } = useAuth();
+  const userId = user!._id;
+  const userRole = user ? user.role : undefined;
+
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { projectsById, currentProjects, isLoading } = useSelector(
+    (state) => state.project
+  );
+  useEffect(() => {
+    if (userId) dispatch(getProjectsByUser(userId));
+    // no userId the first time
+  }, [dispatch, userId]);
+  const projects = currentProjects.map((projectId) => projectsById[projectId]);
+
+  return (
+    <Sheet>
+      <SheetTrigger>
+        <Menu size={30} />
+      </SheetTrigger>
+      <SheetContent
+        side={"left"}
+        className="flex flex-col md:w-[160px]  absolute top-16 bottom-16 h-[88.7vh] shadow-none w-screen"
+      >
+        {userRole === "manager" && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant={"ghost"}>Invite</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Create an invitation</DialogTitle>
+                <DialogDescription>
+                  Invite someone to the app as an employee with limited access.
+                </DialogDescription>
+              </DialogHeader>
+              <InvitationInput />
+            </DialogContent>
+          </Dialog>
+        )}
+        <Separator />
+        <div className="flex flex-col">
+          {isLoading ? (
+            <LoadingScreen />
+          ) : (
+            projects.map((project) => (
+              <Button
+                variant={"ghost"}
+                value={project.name}
+                key={project._id}
+                onClick={() => navigate(`/projects/${project._id}`)}
+              >
+                {project.name}
+              </Button>
+            ))
+          )}
+        </div>
+
+        {userRole === "manager" && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant={"ghost"}>+ New Project</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Create a new project</DialogTitle>
+              </DialogHeader>
+              <ProjectCreateForm />
+            </DialogContent>
+          </Dialog>
+        )}
+      </SheetContent>
+    </Sheet>
+  );
 }
 
 export default SideMenu;

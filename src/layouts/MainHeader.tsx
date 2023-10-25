@@ -13,7 +13,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BellDot, Bell, MoonStar } from "lucide-react";
+import { BellDot, Bell } from "lucide-react";
 import apiService from "@/app/apiService";
 
 import NotificationsCard from "@/app/features/notification/NofificationsCard";
@@ -26,7 +26,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import HomePage from "@/pages/HomePage";
+
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -42,6 +42,8 @@ import { getProjectsByUser } from "@/app/features/project/projectSlice";
 import { Button } from "@/components/ui/button";
 import ProjectCreateForm from "@/app/features/project/ProjectCreateForm";
 import InvitationInput from "@/app/features/invitation/InvitationInput";
+import { ModeToggle } from "@/components/ui/mode-toggle";
+import SideMenu from "./SideMenu";
 
 function MainHeader() {
   const { user, logout } = useAuth();
@@ -97,15 +99,15 @@ function MainHeader() {
 
   return (
     <>
-      <Menubar className="flex justify-between border-none bg-slate-100 h-15 px-4">
-        <div className="flex space-x-5">
-          <Sheet>
+      <Menubar className="flex justify-between border-none  rounded-none h-15 mt-1 ">
+        <div className="flex justify-center space-x-2 items-center w-20 ml-1">
+          {/* <Sheet>
             <SheetTrigger>
               <Menu size={30} />
             </SheetTrigger>
             <SheetContent
               side={"left"}
-              className="flex flex-col w-50 absolute top-16 bottom-16 h-[88.7vh] shadow-none"
+              className="flex flex-col md:w-[180px]  absolute top-16 bottom-16 h-[88.7vh] shadow-none w-screen"
             >
               {userRole === "manager" && (
                 <Dialog>
@@ -156,22 +158,21 @@ function MainHeader() {
                 </Dialog>
               )}
             </SheetContent>
-          </Sheet>
-        </div>
-        <div className="left-[48%] absolute">
-          <Logo />
+          </Sheet> */}
+          <SideMenu />
+
+          <ModeToggle />
         </div>
 
-        <div className="flex space-x-1 items-center">
-          <div>
-            <MoonStar />
-          </div>
+        <Logo />
+
+        <div className="flex justify-center items-center w-20 mr-1">
           <MenubarMenu>
             <MenubarTrigger>
               {notifications.length ? (
-                <BellDot className="fill-red-400" />
+                <BellDot className="fill-red-400" size={20} />
               ) : (
-                <Bell />
+                <Bell size={20} />
               )}
             </MenubarTrigger>
             <MenubarContent>
@@ -185,7 +186,7 @@ function MainHeader() {
 
           <MenubarMenu>
             <MenubarTrigger>
-              <Avatar>
+              <Avatar className="w-7 h-7">
                 <AvatarImage src="https://github.com/shadcn.png" />
 
                 <AvatarFallback>{user ? user["name"] : ""}</AvatarFallback>
