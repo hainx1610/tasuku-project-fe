@@ -13,7 +13,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BellDot, Bell, Moon } from "lucide-react";
+import { BellDot, Bell, MoonStar } from "lucide-react";
 import apiService from "@/app/apiService";
 
 import NotificationsCard from "@/app/features/notification/NofificationsCard";
@@ -38,10 +38,7 @@ import {
 } from "@/components/ui/dialog";
 import LoadingScreen from "@/components/LoadingScreen";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getProjectsByUser,
-  getSingleProject,
-} from "@/app/features/project/projectSlice";
+import { getProjectsByUser } from "@/app/features/project/projectSlice";
 import { Button } from "@/components/ui/button";
 
 function MainHeader() {
@@ -98,11 +95,11 @@ function MainHeader() {
 
   return (
     <>
-      <Menubar className="flex justify-between border-none">
+      <Menubar className="flex justify-between border-none bg-slate-100 h-15 px-4">
         <div className="flex space-x-5">
           <Sheet>
             <SheetTrigger>
-              <Menu />
+              <Menu size={30} />
             </SheetTrigger>
             <SheetContent side={"left"} className="flex flex-col">
               <div className="flex flex-col">
@@ -138,13 +135,13 @@ function MainHeader() {
               </Dialog>
             </SheetContent>
           </Sheet>
-
-          <Moon />
+          <Logo />
         </div>
-        <Logo />
-        {/* <div className="grow"></div> */}
 
-        <div className="flex">
+        <div className="flex space-x-1 items-center">
+          <div>
+            <MoonStar />
+          </div>
           <MenubarMenu>
             <MenubarTrigger>
               {notifications.length ? (
@@ -194,7 +191,7 @@ function MainHeader() {
           </MenubarMenu>
         </div>
       </Menubar>
-      <Separator className="mt-1" />
+      {/* <Separator className="mt-1" /> */}
     </>
   );
 }
