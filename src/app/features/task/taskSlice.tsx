@@ -48,9 +48,11 @@ const slice = createSlice({
       const tasks = action.payload;
       tasks.forEach((task) => {
         const assigneeName = task.assignedTo ? task.assignedTo.name : undefined;
+        const assigneeId = task.assignedTo ? task.assignedTo._id : undefined;
         const dueDateDisplayed = task.dueDate ? fDate(task.dueDate) : undefined;
         const taskEnhanced = {
           ...task,
+          assigneeId,
           assigneeName,
           dueDateDisplayed,
         };

@@ -29,7 +29,7 @@ function HomePage() {
           Good to see you there, {user!.name}.
         </h1>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Choose a project from the left to view your tasks.
+          Choose a project from the left menu to view your tasks.
         </h4>
       </div>
 

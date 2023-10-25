@@ -60,7 +60,7 @@ function TaskDetails() {
       {isLoading ? (
         <LoadingScreen />
       ) : (
-        <Card className="w-[500px]">
+        <Card className="w-[80vw] md:w-[60vw] ">
           <CardHeader>
             <CardTitle>{selectedTask?.name}</CardTitle>
             <CardDescription>{selectedTask?.description}</CardDescription>
@@ -88,7 +88,7 @@ function TaskDetails() {
               </Card>
             ))}
           </CardContent>
-          <CardFooter className=" w-[500px]">
+          <CardFooter className=" w-full">
             <div className=" grid w-full gap-2 ">
               <form onSubmit={handleSubmit}>
                 <Textarea
@@ -98,7 +98,7 @@ function TaskDetails() {
                   }}
                   placeholder="Type your comment here."
                 />
-                <Button className="my-2">+ Comment</Button>
+                <Button className=" mt-5 ">+ Comment</Button>
               </form>
             </div>
           </CardFooter>
