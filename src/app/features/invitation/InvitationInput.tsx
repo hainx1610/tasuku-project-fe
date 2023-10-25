@@ -17,6 +17,9 @@ import {
 import { Input } from "@/components/ui/input";
 
 import apiService from "@/app/apiService";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   email: z
@@ -32,6 +35,8 @@ const formSchema = z.object({
 });
 
 function InvitationInput() {
+  const [isSending, setIsSending] = useState(false);
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,18 +50,21 @@ function InvitationInput() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
 
     const { email, name } = values;
-
+    setIsSending(true);
     try {
       const confirmLink = await apiService.post("/invitations", {
         email,
         name,
       });
-      console.log(confirmLink);
-    } catch (error) {
-      console.log(error);
+      console.log(confirmLink, "confirmLink");
+      setIsSending(false);
+      toast.success("An invitation has been sent.");
+    } catch (error: any) {
+      // console.log(error);
+      toast.error(error.message);
+      setIsSending(false);
     }
     // console.log(values);
   }
@@ -94,7 +102,13 @@ function InvitationInput() {
             </FormItem>
           )}
         />
-        <Button type="submit">Invite</Button>
+        {isSending ? (
+          <Button className=" cursor-not-allowed opacity-50">
+            <Loader2 className="animate-spin" />
+          </Button>
+        ) : (
+          <Button type="submit">Invite</Button>
+        )}
       </form>
     </Form>
   );

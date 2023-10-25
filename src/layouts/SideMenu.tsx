@@ -55,22 +55,25 @@ function SideMenu() {
         className="flex flex-col md:w-[160px] bg-slate-500 shadow-none w-screen mt-[33px] h-[95vh] z-40"
       >
         {userRole === "manager" && (
-          <Dialog>
-            <DialogTrigger asChild className="mt-5">
-              <Button variant={"ghost"}>Invite</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Create an invitation</DialogTitle>
-                <DialogDescription>
-                  Invite someone to the app as an employee with limited access.
-                </DialogDescription>
-              </DialogHeader>
-              <InvitationInput />
-            </DialogContent>
-          </Dialog>
+          <>
+            <Dialog>
+              <DialogTrigger asChild className="mt-5">
+                <Button variant={"ghost"}>Invite</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create an invitation</DialogTitle>
+                  <DialogDescription>
+                    Invite someone to the app as an employee with limited
+                    access.
+                  </DialogDescription>
+                </DialogHeader>
+                <InvitationInput />
+              </DialogContent>
+            </Dialog>
+            <Separator className="bg-primary" />
+          </>
         )}
-        <Separator className="bg-primary" />
         <div className="flex flex-col">
           {isLoading ? (
             <LoadingScreen />
