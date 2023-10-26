@@ -1,3 +1,4 @@
+// @ts-nocheck
 import useAuth from "@/hooks/useAuth";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";

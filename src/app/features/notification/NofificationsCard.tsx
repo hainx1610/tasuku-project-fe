@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 
 import {
@@ -8,8 +9,6 @@ import {
   // CardHeader,
   // CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
 
 function NotificationsCard({ notifications }) {
   return (

@@ -1,6 +1,5 @@
-import apiService from "@/app/apiService";
 import { BASE_URL } from "@/app/config";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function NotiSub() {
   const subscription = new EventSource(`${BASE_URL}/notifications/subscribe`, {

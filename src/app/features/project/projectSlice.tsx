@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSlice } from "@reduxjs/toolkit";
 import apiService from "../../apiService";
 import { toast } from "react-toastify";

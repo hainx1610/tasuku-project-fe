@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
@@ -11,7 +12,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
+  // DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,

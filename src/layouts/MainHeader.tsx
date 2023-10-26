@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import Logo from "../components/Logo";

@@ -1,5 +1,3 @@
-import React from "react";
-
 function MainFooter() {
   return (
     <div className="py-3 text-xs bg-secondary z-50">

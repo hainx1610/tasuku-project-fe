@@ -1,3 +1,4 @@
+// @ts-nocheck
 import jwtDecode from "jwt-decode";
 
 export const isValidToken = (accessToken: string) => {

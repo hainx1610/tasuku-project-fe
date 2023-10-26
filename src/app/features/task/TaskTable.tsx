@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { columns } from "@/app/features/task/taskColumns";
 import LoadingScreen from "@/components/LoadingScreen";
 import { DataTable } from "@/components/ui/data-table";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import {
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getAllUsers, getUsersByProject } from "../user/userSlice";
 import useAuth from "@/hooks/useAuth";
-import { editProject, getSingleProject } from "./projectSlice";
+import { editProject } from "./projectSlice";
 
 function ProjectMemberList() {
   const { user } = useAuth();

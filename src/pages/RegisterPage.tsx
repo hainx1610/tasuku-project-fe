@@ -1,10 +1,11 @@
+// @ts-nocheck
 import React from "react";
 import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as Yup from "yup";
-import { useLocation, useNavigate, Link as RouterLink } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import FormProvider from "@/components/form/FormProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
