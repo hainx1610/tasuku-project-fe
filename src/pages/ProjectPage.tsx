@@ -33,14 +33,14 @@ export default function ProjectPage() {
   // );
 
   const { selectedProject } = useSelector(
-    (state) => state.project,
+    (state: any) => state.project,
     shallowEqual
   );
 
   //   const projectId = selectedProject?._id;
 
   const { tasksById, currentPageTasks, isLoading } = useSelector(
-    (state) => state.task,
+    (state: any) => state.task,
     shallowEqual
   );
 
