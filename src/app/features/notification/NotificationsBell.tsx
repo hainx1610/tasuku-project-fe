@@ -7,13 +7,26 @@ import {
 } from "@/components/ui/menubar";
 import useAuth from "@/hooks/useAuth";
 import { Bell, BellDot } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 //@ts-ignore
 import { EventSourcePolyfill } from "event-source-polyfill";
+import apiService from "@/app/apiService";
 
 function NotificationsBell() {
   const { user } = useAuth();
   const [notifications, setNotifications] = useState([]);
+
+  // first time
+  useEffect(() => {
+    const getNotifications = async () => {
+      const response = await apiService.get(
+        `/notifications/users/${user?._id}`
+      );
+      console.log(response.data.data, "response");
+      setNotifications(response.data.data);
+    };
+    getNotifications();
+  }, [user]);
 
   const accessToken = window.localStorage.getItem("accessToken");
 
