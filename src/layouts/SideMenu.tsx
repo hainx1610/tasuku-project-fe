@@ -53,7 +53,7 @@ function SideMenu() {
       </SheetTrigger>
       <SheetContent
         side={"left"}
-        className="flex flex-col md:w-[160px] bg-slate-500 shadow-none w-screen mt-[33px] h-[95vh] z-40"
+        className="flex flex-col md:w-[160px] bg-slate-500 shadow-none w-screen mt-[40px] h-[100vh] z-40"
       >
         {userRole === "manager" && (
           <>

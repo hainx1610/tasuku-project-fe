@@ -57,7 +57,7 @@ function TaskDetails() {
   };
 
   return (
-    <div className="container mx-auto py-10 flex justify-center">
+    <div className="container mx-auto py-10 flex justify-center mt-14">
       {isLoading ? (
         <LoadingScreen />
       ) : (

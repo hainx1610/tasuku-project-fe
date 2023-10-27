@@ -55,7 +55,7 @@ export default function ProjectPage() {
   const tasks = currentPageTasks.map((taskId) => tasksById[taskId]);
 
   return (
-    <div className="container mx-auto py-10 ">
+    <div className="container mx-auto py-10 mt-14">
       {isLoading ? (
         <LoadingScreen />
       ) : (
