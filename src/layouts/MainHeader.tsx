@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import { useEffect, useState } from "react";
+
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import Logo from "../components/Logo";
@@ -13,13 +13,11 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { BellDot, Bell } from "lucide-react";
-import apiService from "@/app/apiService";
-
-import NotificationsCard from "@/app/features/notification/NofificationsCard";
 
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import SideMenu from "./SideMenu";
+
+import NotificationsBell from "@/app/features/notification/NotificationsBell";
 
 function MainHeader() {
   const { user, logout } = useAuth();
@@ -27,19 +25,6 @@ function MainHeader() {
   // const userRole = user ? user.role : undefined;
 
   const navigate = useNavigate();
-
-  const [notifications, setNotifications] = useState([]);
-
-  useEffect(() => {
-    const getNotifications = async () => {
-      const response = await apiService.get(
-        `/notifications/users/${user?._id}`
-      );
-      console.log(response.data.data, "response");
-      setNotifications(response.data.data);
-    };
-    getNotifications();
-  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -65,22 +50,8 @@ function MainHeader() {
         <Logo />
 
         <div className="flex justify-center items-center w-20 mr-1 pr-10">
-          <MenubarMenu>
-            <MenubarTrigger>
-              {notifications.length ? (
-                <BellDot className="fill-red-400" size={20} />
-              ) : (
-                <Bell size={20} />
-              )}
-            </MenubarTrigger>
-            <MenubarContent>
-              {notifications.length ? (
-                <NotificationsCard notifications={notifications} />
-              ) : (
-                <span>No notifications at the moment.</span>
-              )}
-            </MenubarContent>
-          </MenubarMenu>
+          {/* <NotificationsMenu /> */}
+          <NotificationsBell />
 
           <MenubarMenu>
             <MenubarTrigger>
