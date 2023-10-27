@@ -152,9 +152,13 @@ function RegisterPage() {
                     type={showPassword ? "text" : "password"}
                     placeholder="*********"
                     {...field}
+                    className="rounded-r-none border-r-0"
                   ></Input>
                 </FormControl>
-                <Toggle onClick={() => setShowPassword(!showPassword)}>
+                <Toggle
+                  className=" border-[1px] rounded-l-none border-l-0"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
                   {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
                 </Toggle>
               </div>
@@ -176,9 +180,11 @@ function RegisterPage() {
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="*********"
                     {...field}
+                    className="rounded-r-none border-r-0"
                   ></Input>
                 </FormControl>
                 <Toggle
+                  className=" border-[1px] rounded-l-none border-l-0"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
