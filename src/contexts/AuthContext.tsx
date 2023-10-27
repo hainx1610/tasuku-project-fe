@@ -85,13 +85,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const { isAuthenticated } = AuthContext;
-        if (isAuthenticated) {
-          try {
-            await autoLogin();
-          } catch (error) {
-            console.log(error);
-          }
+        try {
+          await autoLogin();
+        } catch (error) {
+          console.log(error);
         }
 
         const accessToken = window.localStorage.getItem("accessToken");
