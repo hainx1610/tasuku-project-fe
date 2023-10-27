@@ -64,7 +64,7 @@ function MainHeader() {
 
         <Logo />
 
-        <div className="flex justify-center items-center w-20 mr-1">
+        <div className="flex justify-center items-center w-20 mr-1 pr-10">
           <MenubarMenu>
             <MenubarTrigger>
               {notifications.length ? (
@@ -91,7 +91,7 @@ function MainHeader() {
               </Avatar>
             </MenubarTrigger>
             <MenubarContent>
-              <div className="relative flex cursor-default  items-center rounded-sm px-2 py-1.5 text-sm outline-none ">
+              <div className="relative flex cursor-default  items-center rounded-sm px-2 py-1.5 text-sm outline-none  ">
                 {user ? user["name"] : ""}
               </div>
               <div className="relative flex cursor-default  items-center rounded-sm px-2 py-1.5 text-sm outline-none ">

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createContext, useReducer, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
@@ -84,10 +85,13 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initialize = async () => {
       try {
-        try {
-          await autoLogin();
-        } catch (error) {
-          console.log(error);
+        const { isAuthenticated } = AuthContext;
+        if (isAuthenticated) {
+          try {
+            await autoLogin();
+          } catch (error) {
+            console.log(error);
+          }
         }
 
         const accessToken = window.localStorage.getItem("accessToken");
