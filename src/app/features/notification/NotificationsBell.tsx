@@ -57,7 +57,7 @@ function NotificationsBell() {
   // custom "connected" event
   subscription.addEventListener("notifications", async (e: any) => {
     const jsonData = JSON.parse(e.data);
-    // console.log(jsonData, "Subscription to Notifications successful!");
+    console.log(jsonData, "Subscription to Notifications successful!");
     setNotifications(jsonData);
   });
 
