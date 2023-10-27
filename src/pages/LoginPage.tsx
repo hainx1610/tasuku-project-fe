@@ -24,7 +24,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 // import { toast } from "react-toastify";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info, ShieldAlert } from "lucide-react";
+import { Info, Loader2, ShieldAlert } from "lucide-react";
 
 const formSchema = z.object({
   email: z
@@ -51,6 +51,7 @@ function LoginPage() {
       password: "",
     },
   });
+  const { isSubmitting } = form.formState;
 
   // 2. Define a submit handler.
   const navigate = useNavigate();
@@ -143,7 +144,13 @@ function LoginPage() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign in</Button>
+        {isSubmitting ? (
+          <Button className=" cursor-not-allowed opacity-50">
+            <Loader2 className="animate-spin" />
+          </Button>
+        ) : (
+          <Button type="submit">Sign in</Button>
+        )}
       </form>
     </Form>
   );

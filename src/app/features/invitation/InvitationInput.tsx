@@ -35,8 +35,6 @@ const formSchema = z.object({
 });
 
 function InvitationInput() {
-  const [isSending, setIsSending] = useState(false);
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,6 +43,7 @@ function InvitationInput() {
       name: "",
     },
   });
+  const { isSubmitting } = form.formState;
 
   // 2. Define a submit handler.
 
@@ -52,19 +51,18 @@ function InvitationInput() {
     // Do something with the form values.
 
     const { email, name } = values;
-    setIsSending(true);
+
     try {
       const confirmLink = await apiService.post("/invitations", {
         email,
         name,
       });
       console.log(confirmLink, "confirmLink");
-      setIsSending(false);
+
       toast.success("An invitation has been sent.");
     } catch (error: any) {
       // console.log(error);
       toast.error(error.message);
-      setIsSending(false);
     }
     // console.log(values);
   }
@@ -102,7 +100,7 @@ function InvitationInput() {
             </FormItem>
           )}
         />
-        {isSending ? (
+        {isSubmitting ? (
           <Button className=" cursor-not-allowed opacity-50">
             <Loader2 className="animate-spin" />
           </Button>
