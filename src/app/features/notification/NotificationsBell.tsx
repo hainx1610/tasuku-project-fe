@@ -30,11 +30,11 @@ function NotificationsBell() {
 
   // Default events
   subscription.addEventListener("open", () => {
-    console.log("Connection opened");
+    console.log("Connection to Notifications opened");
   });
 
   subscription.addEventListener("error", () => {
-    console.error("Subscription error");
+    console.error("Subscription to Notifications error");
   });
 
   subscription.addEventListener("message", () => {
@@ -43,7 +43,7 @@ function NotificationsBell() {
 
   // custom "connected" event
   subscription.addEventListener("notifications", async (e: any) => {
-    console.log("Subscription successful!");
+    console.log("Subscription to Notifications successful!");
     const jsonData = JSON.parse(e.data);
     setNotifications(jsonData);
   });
