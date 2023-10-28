@@ -34,7 +34,7 @@ export function DataTableColumnHeader<TData, TValue>({
   return (
     <div
       className={cn(
-        "flex items-center space-x-2 w-8 md:w-20 lg:w-36",
+        "flex items-center space-x-2 w-4 md:w-20 lg:w-36",
         className
       )}
     >
@@ -43,7 +43,7 @@ export function DataTableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-3 space-x-0  md:space-x-2 h-8 data-[state=open]:bg-accent"
+            className="-ml-3 space-x-0 inline md:flex md:space-x-2 h-8 data-[state=open]:bg-accent hover:bg-0 md:hover:bg-accent"
           >
             <span className=" text-xs md:text-base">{title}</span>
             {column.getIsSorted() === "desc" ? (
