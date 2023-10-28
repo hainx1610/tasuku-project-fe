@@ -62,9 +62,9 @@ export const columns: ColumnDef<TTask>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2 w-16 md:w-64 ">
+        <div className="flex space-x-2 w-16 lg:w-64 ">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px]  font-medium text-xs md:text-base">
+          <span className="max-w-[500px]  font-medium text-xs lg:text-base">
             {row.getValue("name")}
           </span>
         </div>
@@ -80,9 +80,9 @@ export const columns: ColumnDef<TTask>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2 w-8 md:w-16 ">
+        <div className="flex space-x-2 w-8 lg:w-16 ">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px]  font-medium text-xs md:text-base">
+          <span className="max-w-[500px]  font-medium text-xs lg:text-base">
             {row.getValue("assigneeName")}
           </span>
         </div>
@@ -100,9 +100,9 @@ export const columns: ColumnDef<TTask>[] = [
       // const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2 w-8 md:w-24">
+        <div className="flex space-x-2 w-8 lg:w-24">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px]  font-medium text-xs md:text-base">
+          <span className="max-w-[500px]  font-medium text-xs lg:text-base">
             {row.getValue("dueDateDisplayed")}
           </span>
         </div>
