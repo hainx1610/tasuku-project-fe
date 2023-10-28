@@ -32,7 +32,7 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[150px] lg:w-[250px]"
+          className="h-8 w-[110px] lg:w-[250px]"
         />
         <Input
           placeholder="Filter by assignee..."
@@ -42,8 +42,18 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("assigneeName")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[150px] lg:w-[250px] hidden md:inline"
+          className="h-8 w-[120px] lg:w-[250px] hidden md:inline"
         />
+
+        <Button
+          value={user!._id}
+          className="h-9  lg:px-3"
+          onClick={(e) =>
+            table.getColumn("assigneeId")?.setFilterValue(e.target.value)
+          }
+        >
+          My tasks
+        </Button>
 
         {table.getColumn("status") && (
           <DataTableFacetedFilter
@@ -64,21 +74,12 @@ export function DataTableToolbar<TData>({
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
+            className="h-8 px-2 lg:px-3 "
           >
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
-        <Button
-          value={user!._id}
-          className="h-9  lg:px-3"
-          onClick={(e) =>
-            table.getColumn("assigneeId")?.setFilterValue(e.target.value)
-          }
-        >
-          My tasks
-        </Button>
       </div>
       <DataTableViewOptions table={table} />
     </div>
