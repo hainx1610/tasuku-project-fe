@@ -64,7 +64,7 @@ export const columns: ColumnDef<TTask>[] = [
       return (
         <div className="flex space-x-2 w-16 md:w-64 ">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px] truncate font-medium text-xs md:text-base">
+          <span className="max-w-[500px]  font-medium text-xs md:text-base">
             {row.getValue("name")}
           </span>
         </div>
@@ -82,7 +82,7 @@ export const columns: ColumnDef<TTask>[] = [
       return (
         <div className="flex space-x-2 w-8 md:w-16 ">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px] truncate font-medium text-xs md:text-base">
+          <span className="max-w-[500px]  font-medium text-xs md:text-base">
             {row.getValue("assigneeName")}
           </span>
         </div>
@@ -102,7 +102,7 @@ export const columns: ColumnDef<TTask>[] = [
       return (
         <div className="flex space-x-2 w-8 md:w-24">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px] truncate font-medium text-xs md:text-base">
+          <span className="max-w-[500px]  font-medium text-xs md:text-base">
             {row.getValue("dueDateDisplayed")}
           </span>
         </div>
