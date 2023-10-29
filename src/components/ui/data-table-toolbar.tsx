@@ -32,7 +32,7 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[110px] lg:w-[250px]"
+          className="h-8 w-[110px] lg:w-[220px]"
         />
         <Input
           placeholder="Filter by assignee..."
@@ -42,7 +42,7 @@ export function DataTableToolbar<TData>({
           onChange={(event) =>
             table.getColumn("assigneeName")?.setFilterValue(event.target.value)
           }
-          className="h-8 w-[120px] lg:w-[250px] hidden md:inline"
+          className="h-8 w-[120px] lg:w-[150px] hidden md:inline"
         />
 
         <Button

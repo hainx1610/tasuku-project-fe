@@ -1,16 +1,17 @@
 import { BASE_URL } from "@/app/config";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   MenubarContent,
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import useAuth from "@/hooks/useAuth";
-import { Bell, BellDot } from "lucide-react";
+import { Bell, BellDot, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 //@ts-ignore
 import { EventSourcePolyfill } from "event-source-polyfill";
 import apiService from "@/app/apiService";
+import { Button } from "@/components/ui/button";
 
 function NotificationsBell() {
   const { user } = useAuth();
@@ -61,6 +62,11 @@ function NotificationsBell() {
     setNotifications(jsonData);
   });
 
+  const handleMarkAllRead = async () => {
+    await apiService.delete("/notifications/me");
+    setNotifications([]);
+  };
+
   return (
     <MenubarMenu>
       <MenubarTrigger>
@@ -72,7 +78,7 @@ function NotificationsBell() {
       </MenubarTrigger>
       <MenubarContent>
         {notifications.length ? (
-          <Card className="w-[380px] mt-2 border-none">
+          <Card className="w-[380px] mt-5 border-none -mb-3 ">
             <CardContent className="grid gap-4">
               <div>
                 {notifications.map((notification: any) => (
@@ -94,11 +100,15 @@ function NotificationsBell() {
                 ))}
               </div>
             </CardContent>
-            {/* <CardFooter>
-                   <Button className="w-full">
-                     <Check className="mr-2 h-4 w-4" /> Mark all as read
-                   </Button>
-                 </CardFooter> */}
+            <CardFooter>
+              <Button
+                className="w-full"
+                variant={"ghost"}
+                onClick={handleMarkAllRead}
+              >
+                <Check className="mr-2 h-4 w-4" /> Mark all as read
+              </Button>
+            </CardFooter>
           </Card>
         ) : (
           <span>No notifications at the moment.</span>
