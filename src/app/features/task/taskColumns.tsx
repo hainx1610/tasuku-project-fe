@@ -128,7 +128,10 @@ export const columns: ColumnDef<TTask>[] = [
       return (
         <div className="flex  items-center w-5 md:w-28">
           {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <status.icon
+              className="mr-2 h-4 w-4 text-muted-foreground"
+              style={{ color: `${status.color}` }}
+            />
           )}
           <span className="hidden md:inline">{status.label}</span>
         </div>
@@ -155,7 +158,10 @@ export const columns: ColumnDef<TTask>[] = [
       return (
         <div className="flex items-center w-5 md:w-28">
           {priority.icon && (
-            <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <priority.icon
+              className="mr-2 h-4 w-4 text-muted-foreground"
+              style={{ color: `${priority.color}` }}
+            />
           )}
           <span className="hidden md:inline">{priority.label}</span>
         </div>

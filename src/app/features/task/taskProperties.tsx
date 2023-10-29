@@ -4,10 +4,11 @@ import {
   ArrowUpIcon,
   CheckCircledIcon,
   CircleIcon,
-  QuestionMarkCircledIcon,
+  // QuestionMarkCircledIcon,
   ArchiveIcon,
   StopwatchIcon,
 } from "@radix-ui/react-icons";
+import { HighlighterIcon } from "lucide-react";
 
 export const labels = [
   {
@@ -28,7 +29,7 @@ export const statuses = [
   {
     value: "review",
     label: "Review",
-    icon: QuestionMarkCircledIcon,
+    icon: HighlighterIcon,
   },
   {
     value: "pending",
@@ -39,11 +40,13 @@ export const statuses = [
     value: "working",
     label: "Working",
     icon: StopwatchIcon,
+    color: "orange",
   },
   {
     value: "done",
     label: "Done",
     icon: CheckCircledIcon,
+    color: "green",
   },
   {
     value: "archived",
@@ -57,6 +60,7 @@ export const priorities = [
     label: "Low",
     value: "low",
     icon: ArrowDownIcon,
+    color: "blue",
   },
   {
     label: "Normal",
@@ -67,5 +71,6 @@ export const priorities = [
     label: "High",
     value: "high",
     icon: ArrowUpIcon,
+    color: "orange",
   },
 ];
