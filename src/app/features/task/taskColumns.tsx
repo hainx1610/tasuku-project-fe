@@ -104,7 +104,7 @@ export const columns: ColumnDef<TTask>[] = [
       }
 
       return (
-        <div className="flex space-x-2 w-8 lg:w-24">
+        <div className="flex space-x-2 w-8 lg:w-28">
           <span
             className="max-w-[500px]  font-medium text-xs lg:text-base"
             style={{ color: dateColor }}
