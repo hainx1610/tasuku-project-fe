@@ -196,7 +196,7 @@ function RegisterPage() {
           )}
         />
 
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">Sign up</Button>
       </form>
     </Form>
   );

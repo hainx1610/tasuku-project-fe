@@ -101,7 +101,7 @@ function LoginPage() {
               navigate("/register");
             }}
           >
-            Sign Up
+            Sign up
           </RouterLink>
         </AlertDescription>
       </Alert>
