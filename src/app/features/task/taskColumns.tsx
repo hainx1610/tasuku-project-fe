@@ -97,13 +97,19 @@ export const columns: ColumnDef<TTask>[] = [
       <DataTableColumnHeader column={column} title="Due" />
     ),
     cell: ({ row }) => {
-      // const label = labels.find((label) => label.value === row.original.label);
+      const dueDateDisplayed: string = row.getValue("dueDateDisplayed");
+      let dateColor = "";
+      if (Date.parse(dueDateDisplayed) <= Date.now()) {
+        dateColor = "#8b0000";
+      }
 
       return (
         <div className="flex space-x-2 w-8 lg:w-24">
-          {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[500px]  font-medium text-xs lg:text-base">
-            {row.getValue("dueDateDisplayed")}
+          <span
+            className="max-w-[500px]  font-medium text-xs lg:text-base"
+            style={{ color: dateColor }}
+          >
+            {dueDateDisplayed}
           </span>
         </div>
       );
@@ -133,7 +139,9 @@ export const columns: ColumnDef<TTask>[] = [
               style={{ color: `${status.color}` }}
             />
           )}
-          <span className="hidden md:inline">{status.label}</span>
+          <span className="hidden md:inline text-xs lg:text-base">
+            {status.label}
+          </span>
         </div>
       );
     },
@@ -163,7 +171,9 @@ export const columns: ColumnDef<TTask>[] = [
               style={{ color: `${priority.color}` }}
             />
           )}
-          <span className="hidden md:inline">{priority.label}</span>
+          <span className="hidden md:inline text-xs lg:text-base">
+            {priority.label}
+          </span>
         </div>
       );
     },

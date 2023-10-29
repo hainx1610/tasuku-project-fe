@@ -60,12 +60,12 @@ export const priorities = [
     label: "Low",
     value: "low",
     icon: ArrowDownIcon,
-    color: "blue",
   },
   {
     label: "Normal",
     value: "normal",
     icon: ArrowRightIcon,
+    color: "blue",
   },
   {
     label: "High",
