@@ -55,7 +55,7 @@ function MainHeader() {
 
           <MenubarMenu>
             <MenubarTrigger>
-              <Avatar className="w-7 h-7">
+              <Avatar className="w-7 h-7 hover:cursor-pointer">
                 <AvatarImage src="https://github.com/shadcn.png" />
 
                 <AvatarFallback>{user ? user["name"] : ""}</AvatarFallback>

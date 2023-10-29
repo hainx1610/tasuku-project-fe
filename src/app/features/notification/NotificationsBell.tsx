@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { EventSourcePolyfill } from "event-source-polyfill";
 import apiService from "@/app/apiService";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
 
 function NotificationsBell() {
   const { user } = useAuth();
@@ -30,6 +31,8 @@ function NotificationsBell() {
   }, [user]);
 
   const accessToken = window.localStorage.getItem("accessToken");
+  if (!accessToken)
+    toast.error("Token expired. Please refresh of sign in again.");
 
   const subscription = new EventSourcePolyfill(
     `${BASE_URL}/notifications/subscribe/users/${user?._id}`,
@@ -48,7 +51,7 @@ function NotificationsBell() {
   // });
 
   subscription.addEventListener("error", () => {
-    console.error("Subscription to Notifications error");
+    toast.error("Subscription to Notifications error");
   });
 
   subscription.addEventListener("message", () => {
@@ -71,7 +74,7 @@ function NotificationsBell() {
     <MenubarMenu>
       <MenubarTrigger>
         {notifications.length ? (
-          <BellDot className="fill-red-400" size={20} />
+          <BellDot className="fill-red-400 hover:cursor-pointer" size={20} />
         ) : (
           <Bell size={20} />
         )}
@@ -89,8 +92,8 @@ function NotificationsBell() {
                     <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
                     <div className="space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {/* {notification.title} */}
-                        {"A task has been updated."}
+                        {notification.title}
+                        {/* {"A task has been updated."} */}
                       </p>
                       <p className="text-sm text-muted-foreground">
                         {notification.message}
