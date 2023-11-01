@@ -41,7 +41,7 @@ function MainHeader() {
   return (
     <>
       <Menubar className="flex justify-between border-none bg-secondary  rounded-none h-15 pt-2 z-50 fixed w-screen ">
-        <div className="flex justify-center space-x-2 items-center w-20 pl-2">
+        <div className="flex justify-center space-x-2 items-center w-24 pl-2">
           <SideMenu />
 
           <ModeToggle />
@@ -49,7 +49,7 @@ function MainHeader() {
 
         <Logo />
 
-        <div className="flex justify-center items-center w-20 mr-1 pr-2">
+        <div className="flex justify-center items-center w-24 mr-1 pr-2">
           {/* <NotificationsMenu /> */}
           <NotificationsBell />
 
