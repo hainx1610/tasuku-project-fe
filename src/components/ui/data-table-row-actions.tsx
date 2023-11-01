@@ -32,8 +32,17 @@ import { getUsersByProject } from "@/app/features/user/userSlice";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 
-// import { labels } from "../../app/features/task/taskProperties";
-// import { taskSchema } from "../data/schema";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -77,6 +86,8 @@ export function DataTableRowActions<TData>({
       : currentMembers.filter((member) => member._id === user._id);
 
   const navigate = useNavigate();
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   return (
     <>
@@ -182,11 +193,7 @@ export function DataTableRowActions<TData>({
           <DropdownMenuSeparator />
 
           {user!.role === "manager" && (
-            <DropdownMenuItem
-              onClick={async () => {
-                dispatch(deleteTask(task._id));
-              }}
-            >
+            <DropdownMenuItem onClick={() => setIsAlertOpen(true)}>
               Delete
               {/* <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut> */}
             </DropdownMenuItem>
@@ -195,6 +202,27 @@ export function DataTableRowActions<TData>({
       </DropdownMenu>
 
       <TaskEditSheet isOpen={isOpen} setIsOpen={setIsOpen} task={task} />
+      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
+        {/* <AlertDialogTrigger>Delete</AlertDialogTrigger> */}
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will delete the task.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async () => {
+                dispatch(deleteTask(task._id));
+              }}
+            >
+              Confirm
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }
