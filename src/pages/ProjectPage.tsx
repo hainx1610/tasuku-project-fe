@@ -12,33 +12,16 @@ import ProjectMemberList from "@/app/features/project/ProjectMemberList";
 import { useParams } from "react-router-dom";
 import { getSingleProject } from "@/app/features/project/projectSlice";
 
-// data = includeTasks arr
 export default function ProjectPage() {
   const params = useParams();
   const projectId = params.projectId;
 
   const dispatch = useDispatch();
 
-  // const { selectedTask } = useSelector(
-  //   (state: any) => state.task,
-  //   shallowEqual
-  // );
-
-  // useEffect(() => {
-  //   if (selectedProject) dispatch(getSingleProject(selectedProject._id));
-  // }, [dispatch, selectedTask]);
-
-  // const { selectedProject, isLoading } = useSelector(
-  //   (state: any) => state.project,
-  //   shallowEqual
-  // );
-
   const { selectedProject } = useSelector(
     (state: any) => state.project,
     shallowEqual
   );
-
-  //   const projectId = selectedProject?._id;
 
   const { tasksById, currentPageTasks, isLoading } = useSelector(
     (state: any) => state.task,
@@ -67,11 +50,7 @@ export default function ProjectPage() {
           <h4 className="scroll-m-20 text-slate-500 text-xl font-semibold tracking-tight">
             {selectedProject?.description}
           </h4>
-          <DataTable
-            columns={columns}
-            // data={selectedProject ? selectedProject.includeTasks : []}
-            data={tasks ? tasks : []}
-          />
+          <DataTable columns={columns} data={tasks ? tasks : []} />
           <div className="flex flex-col w-32 space-y-5">
             <TaskCreateSheet />
             <ProjectMemberList />
