@@ -57,7 +57,7 @@ function ProjectMemberList() {
           <DropdownMenuItem
             key={member._id}
             onClick={(e) => e.preventDefault()}
-          >{`${member.name} - ${member._id}`}</DropdownMenuItem>
+          >{`${member.name} - ${member.email}`}</DropdownMenuItem>
         ))}
 
         <DropdownMenuSeparator />
@@ -85,7 +85,7 @@ function ProjectMemberList() {
                     );
                   }}
                 >
-                  {`${each.name} - ${each._id}`}
+                  {`${each.name} - ${each.email}`}
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>

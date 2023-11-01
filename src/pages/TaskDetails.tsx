@@ -66,6 +66,13 @@ function TaskDetails() {
             <CardTitle>{selectedTask?.name}</CardTitle>
             <CardDescription>{selectedTask?.description}</CardDescription>
             <CardDescription>{`status: ${selectedTask?.status} - priority: ${selectedTask?.priority}`}</CardDescription>
+            <CardDescription>
+              {`Assigned to: ${
+                selectedTask.assignedTo
+                  ? selectedTask?.assignedTo.name
+                  : "Unassigned"
+              } `}
+            </CardDescription>
             <CardDescription>{`Due: ${
               selectedTask?.dueDate
                 ? fDate(selectedTask?.dueDate)

@@ -41,7 +41,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  // AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
 interface DataTableRowActionsProps<TData> {
@@ -51,11 +51,8 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  // const task = taskSchema.parse(row.original);
-  // You can access the row data using row.original in the cell function.
-  // Use this to handle actions for your row eg. use the id to make a DELETE call to your API.
+  // access the row data using row.original in the cell function.
   const task = row.original;
-  // console.log(task, "row original");
 
   const { user } = useAuth();
 
@@ -182,7 +179,7 @@ export function DataTableRowActions<TData>({
                       );
                     }}
                   >
-                    {`${member.name} - ${member._id}`}
+                    {`${member.name} - ${member.email}`}
                     {user?._id === member._id ? " (me)" : ""}
                   </DropdownMenuRadioItem>
                 ))}

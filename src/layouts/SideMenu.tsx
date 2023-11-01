@@ -75,7 +75,7 @@ function SideMenu() {
             <Separator className="bg-primary" />
           </>
         )}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-32 justify-center items-center">
           {isLoading ? (
             <LoadingScreen />
           ) : (
@@ -85,8 +85,9 @@ function SideMenu() {
                 value={project.name}
                 key={project._id}
                 onClick={() => navigate(`/projects/${project._id}`)}
+                className="h-fit"
               >
-                {project.name}
+                <p className="break-words hyphens-auto">{project.name}</p>
               </Button>
             ))
           )}
