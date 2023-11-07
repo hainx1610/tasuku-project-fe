@@ -64,15 +64,20 @@ function LoginPage() {
     const { email, password } = values;
 
     try {
+      if (auth.user)
+        throw new Error("A user already logged in. Please log out first.");
       if (!auth.login) throw new Error("Logout func undefined");
       await auth.login({ email, password }, () => {
         navigate(from, { replace: true });
         // this is the callback param of the login func in AuthProvider
       });
     } catch (error) {
-      // console.log(error);
+      console.error(error);
       // form.reset();
-      form.setError("responseError", error);
+      form.setError("responseError", {
+        type: "custom",
+        message: error.message,
+      });
     }
     // console.log(values);
   }
