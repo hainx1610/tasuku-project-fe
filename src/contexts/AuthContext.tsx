@@ -149,7 +149,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (
     { name, email, password }: TRegisterObj,
-    callback: () => void
+    callback?: () => void
   ) => {
     const response = await apiService.post(
       "/users",
@@ -169,7 +169,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       type: REGISTER_SUCCESS,
       payload: { user },
     });
-    callback();
+    if (callback) callback();
   };
 
   const logout = async (callback: () => void) => {

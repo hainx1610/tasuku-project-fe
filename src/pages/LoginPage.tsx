@@ -1,6 +1,5 @@
-// @ts-nocheck
 import useAuth from "@/hooks/useAuth";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as Yup from "yup";
@@ -24,7 +23,20 @@ import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 // import { toast } from "react-toastify";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info, Loader2, ShieldAlert } from "lucide-react";
+import { Info, Loader2, LogInIcon, ShieldAlert } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import UserForgotPasswordForm from "@/app/features/user/userForgotPasswordForm";
+
+import { BASE_URL } from "@/app/config";
 
 const formSchema = z.object({
   email: z
@@ -161,6 +173,42 @@ function LoginPage() {
           <Button type="submit">Sign in</Button>
         )}
       </form>
+
+      <Button
+        variant={"ghost"}
+        onClick={async (e) => {
+          e.preventDefault();
+          window.open(`${BASE_URL}/auth/login/google`, "_self");
+        }}
+      >
+        <LogInIcon size={16} className="mr-1" />
+        Sign in with Google
+      </Button>
+
+      <Alert className="w-70 my-2 pb-2 mb-5">
+        <Info className="h-4 w-4" />
+        {/* <AlertTitle>Don't have an account? Get Started</AlertTitle> */}
+        <AlertDescription>
+          <Dialog>
+            <DialogTrigger className=" text-orange-500 hover:underline">
+              Forgot password?
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Forgot your password?</DialogTitle>
+                <DialogDescription>
+                  A new temporary password will be sent to your email address.
+                  After logging in, please change it immediately.
+                </DialogDescription>
+              </DialogHeader>
+              <UserForgotPasswordForm />
+              <DialogFooter>
+                <Button type="submit">Send email</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </AlertDescription>
+      </Alert>
     </Form>
   );
 }
