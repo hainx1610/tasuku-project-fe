@@ -60,21 +60,21 @@ export function DataTableRowActions<TData>({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { selectedProject } = useSelector(
-    (state) => state.project,
-    shallowEqual
-  );
+  // const { selectedProject } = useSelector(
+  //   (state) => state.project,
+  //   shallowEqual
+  // );
 
-  const projectId = selectedProject?._id;
+  // const projectId = selectedProject?._id;
 
   const { usersById, currentUsers } = useSelector(
     (state) => state.user,
     shallowEqual
   );
 
-  useEffect(() => {
-    if (projectId) dispatch(getUsersByProject(projectId));
-  }, [dispatch, projectId]);
+  // useEffect(() => {
+  //   if (projectId) dispatch(getUsersByProject(projectId));
+  // }, [dispatch, projectId]);
 
   const currentMembers = currentUsers.map((userId) => usersById[userId]);
   const members =

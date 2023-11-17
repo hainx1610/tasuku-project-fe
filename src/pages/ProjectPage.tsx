@@ -1,16 +1,20 @@
-// @ts-nocheck
+//@ts-nocheck
 import { columns } from "@/app/features/task/taskColumns";
 import LoadingScreen from "@/components/LoadingScreen";
 import { DataTable } from "@/components/ui/data-table";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getTasksByProject } from "@/app/features/task/taskSlice";
 import TaskCreateSheet from "@/app/features/task/TaskCreateSheet";
 import ProjectMemberList from "@/app/features/project/ProjectMemberList";
 import { useParams } from "react-router-dom";
 import { getSingleProject } from "@/app/features/project/projectSlice";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { KanbanSquareIcon, TablePropertiesIcon } from "lucide-react";
+// import ProjectKanbanBoard from "@/app/features/project/ProjectKanbanBoard";
+import { KanbanBoard } from "@/components/kanban/KanbanBoard";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -35,7 +39,9 @@ export default function ProjectPage() {
     }
   }, [dispatch, projectId]);
 
-  const tasks = currentPageTasks.map((taskId) => tasksById[taskId]);
+  const tasksData = currentPageTasks.map((taskId) => tasksById[taskId]);
+
+  const [defaultTab, setDefaultTab] = useState("data-table");
 
   return (
     <div className="container mx-auto py-10 mt-14">
@@ -50,7 +56,41 @@ export default function ProjectPage() {
           <h4 className="scroll-m-20 text-slate-500 text-xl font-semibold tracking-tight">
             {selectedProject?.description}
           </h4>
-          <DataTable columns={columns} data={tasks ? tasks : []} />
+
+          <Tabs defaultValue={defaultTab} className="">
+            <TabsList className="mb-5">
+              <TabsTrigger
+                value="data-table"
+                onFocus={() => {
+                  setDefaultTab("data-table");
+                  dispatch(getTasksByProject(projectId));
+                }}
+              >
+                <TablePropertiesIcon />
+              </TabsTrigger>
+              <TabsTrigger
+                value="data-kanban"
+                onFocus={() => {
+                  setDefaultTab("data-kanban");
+                  dispatch(getTasksByProject(projectId));
+                }}
+              >
+                <KanbanSquareIcon />
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="data-table" className="">
+              <DataTable
+                columns={columns}
+                // data={selectedProject ? selectedProject.includeTasks : []}
+                data={tasksData ? tasksData : []}
+              />
+            </TabsContent>
+            <TabsContent value="data-kanban">
+              {/* <ProjectKanbanBoard /> */}
+              <KanbanBoard tasksData={tasksData} />
+            </TabsContent>
+          </Tabs>
+
           <div className="flex flex-col w-32 space-y-5">
             <TaskCreateSheet />
             <ProjectMemberList />
