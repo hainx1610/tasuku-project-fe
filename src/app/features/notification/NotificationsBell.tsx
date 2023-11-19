@@ -66,8 +66,11 @@ function NotificationsBell() {
   });
 
   const handleMarkAllRead = async () => {
-    await apiService.delete("/notifications/me");
-    setNotifications([]);
+    // await apiService.delete("/notifications/me");
+    await apiService.delete(`/notifications/users/${user!._id}`);
+    // setNotifications([]);
+
+    window.location.reload();
   };
 
   return (
@@ -82,8 +85,17 @@ function NotificationsBell() {
       <MenubarContent>
         {notifications.length ? (
           <Card className="w-[380px] mt-5 border-none -mb-3 ">
+            <CardFooter>
+              <Button
+                className="w-full"
+                variant={"ghost"}
+                onClick={handleMarkAllRead}
+              >
+                <Check className="mr-2 h-4 w-4" /> Mark all as read
+              </Button>
+            </CardFooter>
             <CardContent className="grid gap-4">
-              <div>
+              <div className=" max-h-[70vh] overflow-auto">
                 {notifications.map((notification: any) => (
                   <div
                     key={notification._id}
@@ -103,15 +115,6 @@ function NotificationsBell() {
                 ))}
               </div>
             </CardContent>
-            <CardFooter>
-              <Button
-                className="w-full"
-                variant={"ghost"}
-                onClick={handleMarkAllRead}
-              >
-                <Check className="mr-2 h-4 w-4" /> Mark all as read
-              </Button>
-            </CardFooter>
           </Card>
         ) : (
           <span>No notifications at the moment.</span>
