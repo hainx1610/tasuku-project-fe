@@ -69,7 +69,9 @@ export function KanbanBoard({ tasksData }) {
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
   const [activeTask, setActiveTask] = useState<Task | null>(null);
-  const [startTaskColumn, setStartTaskColumn] = useState<Task | null>(null);
+  const [startTaskColumnId, setStartTaskColumnId] = useState<ColumnId | null>(
+    null
+  );
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -227,10 +229,6 @@ export function KanbanBoard({ tasksData }) {
   );
 
   function onDragStart(event: DragStartEvent) {
-    const { active } = event;
-
-    setStartTaskColumn(active.data.current?.task.columnId);
-
     if (!hasDraggableData(event.active)) return;
     const data = event.active.data.current;
     if (data?.type === "Column") {
@@ -239,6 +237,7 @@ export function KanbanBoard({ tasksData }) {
     }
 
     if (data?.type === "Task") {
+      setStartTaskColumnId(data.task.columnId);
       setActiveTask(data.task);
       return;
     }
@@ -261,8 +260,8 @@ export function KanbanBoard({ tasksData }) {
     // update task status in database
     if (activeData!.task) {
       const activeTask = activeData!.task;
-      // nothing if dragged but still in that column
-      if (activeTask.columnId === startTaskColumn) return;
+      // nothing if task dragged but still in that column
+      if (activeTask.columnId === startTaskColumnId) return;
 
       try {
         const response = await apiService.put(`/tasks/${activeTask.id}`, {

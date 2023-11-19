@@ -12,9 +12,14 @@ import ProjectMemberList from "@/app/features/project/ProjectMemberList";
 import { useParams } from "react-router-dom";
 import { getSingleProject } from "@/app/features/project/projectSlice";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { KanbanSquareIcon, TablePropertiesIcon } from "lucide-react";
+import {
+  BarChart3Icon,
+  KanbanSquareIcon,
+  TablePropertiesIcon,
+} from "lucide-react";
 // import ProjectKanbanBoard from "@/app/features/project/ProjectKanbanBoard";
 import { KanbanBoard } from "@/components/kanban/KanbanBoard";
+import ProjectDashboard from "@/components/dashboard/ProjectDashboard";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -77,6 +82,15 @@ export default function ProjectPage() {
               >
                 <KanbanSquareIcon />
               </TabsTrigger>
+              <TabsTrigger
+                value="data-dashboard"
+                onFocus={() => {
+                  setDefaultTab("data-dashboard");
+                  dispatch(getTasksByProject(projectId));
+                }}
+              >
+                <BarChart3Icon />
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="data-table" className="">
               <DataTable
@@ -88,6 +102,10 @@ export default function ProjectPage() {
             <TabsContent value="data-kanban">
               {/* <ProjectKanbanBoard /> */}
               <KanbanBoard tasksData={tasksData} />
+            </TabsContent>
+            <TabsContent value="data-dashboard">
+              {/* <ProjectKanbanBoard /> */}
+              <ProjectDashboard tasksData={tasksData} />
             </TabsContent>
           </Tabs>
 
