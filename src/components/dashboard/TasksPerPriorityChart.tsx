@@ -25,11 +25,11 @@ function TasksPerPriorityChart({ tasksData }: any) {
 
   const data = priorities.map((priority) => ({
     priority,
-    occurence: taskPrioritySummary[priority],
+    occurence: taskPrioritySummary[priority] || 0,
   }));
 
   const taskSum = data.reduce((acc, { occurence }) => {
-    return acc + occurence;
+    return acc + +occurence;
   }, 0);
 
   const COLORS = ["gray", "blue", "orange"];
@@ -55,7 +55,7 @@ function TasksPerPriorityChart({ tasksData }: any) {
                   fill={COLORS[index % COLORS.length]}
                 />
               ))}
-              <Label value={`${taskSum} tasks`} position="center" />
+              <Label value={`${taskSum} task(s)`} position="center" />
             </Pie>
             <Legend />
           </PieChart>
