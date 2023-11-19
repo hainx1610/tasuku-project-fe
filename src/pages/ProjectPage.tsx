@@ -17,9 +17,12 @@ import {
   KanbanSquareIcon,
   TablePropertiesIcon,
 } from "lucide-react";
-// import ProjectKanbanBoard from "@/app/features/project/ProjectKanbanBoard";
+
 import { KanbanBoard } from "@/components/kanban/KanbanBoard";
 import ProjectDashboard from "@/components/dashboard/ProjectDashboard";
+import TasksPerStatusChart from "@/components/dashboard/TasksPerStatusChart";
+import TasksPerPriorityChart from "@/components/dashboard/TasksPerPriorityChart";
+import TasksPerMemberChart from "@/components/dashboard/TasksPerMemberChart";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -93,19 +96,18 @@ export default function ProjectPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="data-table" className="">
-              <DataTable
-                columns={columns}
-                // data={selectedProject ? selectedProject.includeTasks : []}
-                data={tasksData ? tasksData : []}
-              />
+              <DataTable columns={columns} data={tasksData ? tasksData : []} />
             </TabsContent>
             <TabsContent value="data-kanban">
-              {/* <ProjectKanbanBoard /> */}
               <KanbanBoard tasksData={tasksData} />
             </TabsContent>
-            <TabsContent value="data-dashboard">
-              {/* <ProjectKanbanBoard /> */}
-              <ProjectDashboard tasksData={tasksData} />
+            <TabsContent value="data-dashboard" className="w-screen">
+              {/* <ProjectDashboard tasksData={tasksData} /> */}
+              <div className="flex flex-wrap flex-row  justify-center items-center">
+                <TasksPerStatusChart tasksData={tasksData} />
+                <TasksPerPriorityChart tasksData={tasksData} />
+                <TasksPerMemberChart tasksData={tasksData} />
+              </div>
             </TabsContent>
           </Tabs>
 
