@@ -15,21 +15,21 @@ import {
 } from "../ui/card";
 
 import {} from "module";
+import { statuses } from "@/app/features/task/taskProperties";
 
 function TasksPerStatusChart({ tasksData }: any) {
-  const xAxisKeys = ["pending", "working", "review", "done"];
-  const COLORS = ["gray", "orange", "#6D67E4", "green"];
-
   const taskStatusSummary = tasksData.reduce(
     // @ts-ignore
     (acc, { status }) => ({ ...acc, [status]: (acc[status] || 0) + 1 }),
     {}
   );
 
-  const data = xAxisKeys.map((key) => ({
-    status: key,
-    occurence: taskStatusSummary[key],
+  const data = statuses.slice(0, -1).map((status) => ({
+    ...status,
+    occurence: taskStatusSummary[status.value],
   }));
+
+  console.log(data);
 
   const taskSum = data.reduce((acc, { occurence }) => {
     return acc + +occurence;
@@ -52,9 +52,9 @@ function TasksPerStatusChart({ tasksData }: any) {
             >
               {data.map((entry, index) => (
                 <Cell
-                  name={entry.status}
+                  name={entry.label}
                   key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
+                  fill={entry.color}
                 />
               ))}
               <Label value={`${taskSum} task(s)`} position="center" />

@@ -27,22 +27,22 @@ export const labels = [
 
 export const statuses = [
   {
-    value: "review",
-    label: "Review",
-    icon: HighlighterIcon,
-    color: "#6D67E4",
-  },
-  {
     value: "pending",
     label: "Pending",
     icon: CircleIcon,
-    color: "gray",
+    color: "#46C2CB",
   },
   {
     value: "working",
     label: "Working",
     icon: StopwatchIcon,
     color: "orange",
+  },
+  {
+    value: "review",
+    label: "Review",
+    icon: HighlighterIcon,
+    color: "#6D67E4",
   },
   {
     value: "done",
@@ -68,7 +68,7 @@ export const priorities = [
     label: "Normal",
     value: "normal",
     icon: ArrowRightIcon,
-    color: "#46C2CB",
+    color: "#0766AD",
   },
   {
     label: "High",

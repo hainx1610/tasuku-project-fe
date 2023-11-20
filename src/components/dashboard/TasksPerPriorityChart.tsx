@@ -13,11 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { priorities } from "@/app/features/task/taskProperties";
 
 function TasksPerPriorityChart({ tasksData }: any) {
-  const priorities = ["low", "normal", "high"];
-  const COLORS = ["#C4B6B6", "#46C2CB", "#C74B50"];
-
   const taskPrioritySummary = tasksData.reduce(
     // @ts-ignore
     (acc, { priority }) => ({ ...acc, [priority]: (acc[priority] || 0) + 1 }),
@@ -25,9 +23,11 @@ function TasksPerPriorityChart({ tasksData }: any) {
   );
 
   const data = priorities.map((priority) => ({
-    priority,
-    occurence: taskPrioritySummary[priority] || 0,
+    ...priority,
+    occurence: taskPrioritySummary[priority.value],
   }));
+
+  console.log(data);
 
   const taskSum = data.reduce((acc, { occurence }) => {
     return acc + +occurence;
@@ -50,9 +50,9 @@ function TasksPerPriorityChart({ tasksData }: any) {
             >
               {data.map((entry, index) => (
                 <Cell
-                  name={entry.priority}
+                  name={entry.label}
                   key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
+                  fill={entry.color}
                 />
               ))}
               <Label value={`${taskSum} task(s)`} position="center" />
