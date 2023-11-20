@@ -30,6 +30,7 @@ export const statuses = [
     value: "review",
     label: "Review",
     icon: HighlighterIcon,
+    color: "#adfa1d",
   },
   {
     value: "pending",

@@ -47,6 +47,7 @@ function TasksPerPriorityChart({ tasksData }: any) {
               dataKey="occurence"
               innerRadius={70}
               outerRadius={100}
+              label
             >
               {data.map((entry, index) => (
                 <Cell

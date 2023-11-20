@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 import { KanbanBoard } from "@/components/kanban/KanbanBoard";
-import ProjectDashboard from "@/components/dashboard/ProjectDashboard";
+
 import TasksPerStatusChart from "@/components/dashboard/TasksPerStatusChart";
 import TasksPerPriorityChart from "@/components/dashboard/TasksPerPriorityChart";
 import TasksPerMemberChart from "@/components/dashboard/TasksPerMemberChart";
@@ -106,7 +106,10 @@ export default function ProjectPage() {
               <div className="flex flex-wrap flex-row  justify-center items-center">
                 <TasksPerStatusChart tasksData={tasksData} />
                 <TasksPerPriorityChart tasksData={tasksData} />
-                <TasksPerMemberChart tasksData={tasksData} />
+                <TasksPerMemberChart
+                  tasksData={tasksData}
+                  projectData={selectedProject}
+                />
               </div>
             </TabsContent>
           </Tabs>

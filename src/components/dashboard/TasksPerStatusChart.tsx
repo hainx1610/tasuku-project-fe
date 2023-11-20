@@ -1,4 +1,11 @@
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import {
+  Cell,
+  Label,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+} from "recharts";
 import {
   Card,
   CardContent,
@@ -21,6 +28,12 @@ function TasksPerStatusChart({ tasksData }: any) {
     occurence: taskStatusSummary[key],
   }));
 
+  const taskSum = data.reduce((acc, { occurence }) => {
+    return acc + +occurence;
+  }, 0);
+
+  const COLORS = ["gray", "orange", "#adfa1d", "green"];
+
   return (
     <Card className=" w-96 m-2">
       <CardHeader>
@@ -28,24 +41,25 @@ function TasksPerStatusChart({ tasksData }: any) {
       </CardHeader>
       <CardContent className="pl-0">
         <ResponsiveContainer width={"100%"} height={350}>
-          <BarChart data={data}>
-            <XAxis
-              dataKey="status"
-              stroke="#888888"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-            />
-            <YAxis
-              allowDecimals={false}
-              stroke="#888888"
-              fontSize={12}
-              tickLine={false}
-              axisLine={false}
-              // tickFormatter={(value) => `$${value}`}
-            />
-            <Bar dataKey="occurence" fill="#adfa1d" radius={[4, 4, 0, 0]} />
-          </BarChart>
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="occurence"
+              innerRadius={70}
+              outerRadius={100}
+              label
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  name={entry.status}
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+              <Label value={`${taskSum} task(s)`} position="center" />
+            </Pie>
+            <Legend />
+          </PieChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>
