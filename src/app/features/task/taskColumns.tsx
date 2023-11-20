@@ -139,7 +139,10 @@ export const columns: ColumnDef<TTask>[] = [
               style={{ color: `${status.color}` }}
             />
           )}
-          <span className="hidden md:inline text-xs lg:text-base">
+          <span
+            className="hidden md:inline text-xs lg:text-base"
+            style={{ color: `${status.color}` }}
+          >
             {status.label}
           </span>
         </div>
@@ -171,7 +174,10 @@ export const columns: ColumnDef<TTask>[] = [
               style={{ color: `${priority.color}` }}
             />
           )}
-          <span className="hidden md:inline text-xs lg:text-base">
+          <span
+            className="hidden md:inline text-xs lg:text-base"
+            style={{ color: `${priority.color}` }}
+          >
             {priority.label}
           </span>
         </div>

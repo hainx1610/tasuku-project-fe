@@ -14,8 +14,11 @@ import {
   CardTitle,
 } from "../ui/card";
 
+import {} from "module";
+
 function TasksPerStatusChart({ tasksData }: any) {
   const xAxisKeys = ["pending", "working", "review", "done"];
+  const COLORS = ["gray", "orange", "#6D67E4", "green"];
 
   const taskStatusSummary = tasksData.reduce(
     // @ts-ignore
@@ -31,8 +34,6 @@ function TasksPerStatusChart({ tasksData }: any) {
   const taskSum = data.reduce((acc, { occurence }) => {
     return acc + +occurence;
   }, 0);
-
-  const COLORS = ["gray", "orange", "#adfa1d", "green"];
 
   return (
     <Card className=" w-96 m-2">

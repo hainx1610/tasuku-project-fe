@@ -34,7 +34,7 @@ function TasksPerMemberChart({ tasksData, projectData }: any) {
   return (
     <Card className=" w-96 m-2">
       <CardHeader>
-        <CardTitle>Tasks per Assignee</CardTitle>
+        <CardTitle>Tasks per Member</CardTitle>
       </CardHeader>
       <CardContent className="pl-0">
         <ResponsiveContainer width={"100%"} height={350}>

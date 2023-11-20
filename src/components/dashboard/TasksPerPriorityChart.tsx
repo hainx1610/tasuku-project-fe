@@ -16,6 +16,7 @@ import {
 
 function TasksPerPriorityChart({ tasksData }: any) {
   const priorities = ["low", "normal", "high"];
+  const COLORS = ["#C4B6B6", "#46C2CB", "#C74B50"];
 
   const taskPrioritySummary = tasksData.reduce(
     // @ts-ignore
@@ -31,8 +32,6 @@ function TasksPerPriorityChart({ tasksData }: any) {
   const taskSum = data.reduce((acc, { occurence }) => {
     return acc + +occurence;
   }, 0);
-
-  const COLORS = ["gray", "blue", "orange"];
 
   return (
     <Card className=" w-96 m-2">
