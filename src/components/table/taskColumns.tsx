@@ -7,8 +7,8 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { priorities, statuses } from "@/app/features/task/taskProperties";
 // import { Task } from "../data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { DataTableRowActions } from "@/components/ui/data-table-row-actions";
+import { DataTableColumnHeader } from "@/components/table/data-table-column-header";
+import { DataTableRowActions } from "@/components/table/data-table-row-actions";
 import { TTask } from "@/types";
 
 export const columns: ColumnDef<TTask>[] = [

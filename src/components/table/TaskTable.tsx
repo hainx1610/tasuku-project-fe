@@ -1,14 +1,14 @@
 // @ts-nocheck
-import { columns } from "@/app/features/task/taskColumns";
+import { columns } from "@/components/table/taskColumns";
 import LoadingScreen from "@/components/LoadingScreen";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/table/data-table";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
-import { getTasksByProject } from "./taskSlice";
-import TaskCreateSheet from "./TaskCreateSheet";
-import ProjectMemberList from "../project/ProjectMemberList";
+import { getTasksByProject } from "../../app/features/task/taskSlice";
+import TaskCreateSheet from "../../app/features/task/TaskCreateSheet";
+import ProjectMemberList from "../../app/features/project/ProjectMemberList";
 
 // data = includeTasks arr
 export default function TaskTable() {

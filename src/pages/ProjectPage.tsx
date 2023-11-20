@@ -1,7 +1,7 @@
 //@ts-nocheck
-import { columns } from "@/app/features/task/taskColumns";
+import { columns } from "@/components/table/taskColumns";
 import LoadingScreen from "@/components/LoadingScreen";
-import { DataTable } from "@/components/ui/data-table";
+import { DataTable } from "@/components/table/data-table";
 
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
