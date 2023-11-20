@@ -26,10 +26,8 @@ function TasksPerStatusChart({ tasksData }: any) {
 
   const data = statuses.slice(0, -1).map((status) => ({
     ...status,
-    occurence: taskStatusSummary[status.value],
+    occurence: taskStatusSummary[status.value] || 0,
   }));
-
-  console.log(data);
 
   const taskSum = data.reduce((acc, { occurence }) => {
     return acc + +occurence;

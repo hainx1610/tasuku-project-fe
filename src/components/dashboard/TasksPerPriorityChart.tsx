@@ -24,10 +24,8 @@ function TasksPerPriorityChart({ tasksData }: any) {
 
   const data = priorities.map((priority) => ({
     ...priority,
-    occurence: taskPrioritySummary[priority.value],
+    occurence: taskPrioritySummary[priority.value] || 0,
   }));
-
-  console.log(data);
 
   const taskSum = data.reduce((acc, { occurence }) => {
     return acc + +occurence;
