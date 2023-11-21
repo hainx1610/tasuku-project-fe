@@ -5,6 +5,7 @@ import {
   Pie,
   PieChart,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 import {
   Card,
@@ -39,12 +40,14 @@ function TasksPerPriorityChart({ tasksData }: any) {
       <CardContent className="px-0">
         <ResponsiveContainer width={"100%"} height={350}>
           <PieChart>
+            <Tooltip filterNull={true} />
             <Pie
               data={data}
               dataKey="occurence"
               innerRadius={70}
               outerRadius={100}
-              label
+              labelLine={false}
+              // label
             >
               {data.map((entry, index) => (
                 <Cell
