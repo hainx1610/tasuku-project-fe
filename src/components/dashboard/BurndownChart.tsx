@@ -27,7 +27,7 @@ function BurndownChart({ tasksData, projectData }: any) {
   daysList.push(fDateMD(fAddHours(projectData.endAt, 24)));
 
   const idealTotalEffortHrs = (daysList.length - 1) * 8;
-  console.log(daysList);
+
   const data = daysList.map((day, index) => ({
     name: day,
     idealEffort: idealTotalEffortHrs - index * 8,
@@ -38,7 +38,7 @@ function BurndownChart({ tasksData, projectData }: any) {
       <CardHeader>
         <CardTitle>Burndown</CardTitle>
       </CardHeader>
-      <CardContent className="pl-0 pr-3">
+      <CardContent className="pl-0 pr-5">
         <ResponsiveContainer width={"100%"} height={350}>
           <ComposedChart width={730} height={250} data={data}>
             <XAxis
