@@ -36,7 +36,7 @@ function TasksPerPriorityChart({ tasksData }: any) {
       <CardHeader>
         <CardTitle>Tasks per Priority</CardTitle>
       </CardHeader>
-      <CardContent className="">
+      <CardContent className="px-0">
         <ResponsiveContainer width={"100%"} height={350}>
           <PieChart>
             <Pie

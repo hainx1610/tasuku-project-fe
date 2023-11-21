@@ -32,7 +32,7 @@ function TasksPerMemberChart({ tasksData, projectData }: any) {
   // }));
 
   return (
-    <Card className=" w-96 m-2">
+    <Card className=" w-96 m-2 ">
       <CardHeader>
         <CardTitle>Tasks per Member</CardTitle>
       </CardHeader>
@@ -45,9 +45,9 @@ function TasksPerMemberChart({ tasksData, projectData }: any) {
               fontSize={12}
               tickLine={false}
               axisLine={false}
-              angle={-45}
+              angle={-60}
               textAnchor="end"
-              height={50}
+              height={60}
             />
             <YAxis
               allowDecimals={false}
@@ -55,6 +55,7 @@ function TasksPerMemberChart({ tasksData, projectData }: any) {
               fontSize={12}
               tickLine={false}
               axisLine={false}
+
               // tickFormatter={(value) => `$${value}`}
             />
             <Bar dataKey="occurence" fill="#adfa1d" radius={[4, 4, 0, 0]} />

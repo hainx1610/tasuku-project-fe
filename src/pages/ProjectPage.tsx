@@ -23,6 +23,7 @@ import { KanbanBoard } from "@/components/kanban/KanbanBoard";
 import TasksPerStatusChart from "@/components/dashboard/TasksPerStatusChart";
 import TasksPerPriorityChart from "@/components/dashboard/TasksPerPriorityChart";
 import TasksPerMemberChart from "@/components/dashboard/TasksPerMemberChart";
+import BurndownChart from "@/components/dashboard/BurndownChart";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -107,6 +108,10 @@ export default function ProjectPage() {
                 <TasksPerStatusChart tasksData={tasksData} />
                 <TasksPerPriorityChart tasksData={tasksData} />
                 <TasksPerMemberChart
+                  tasksData={tasksData}
+                  projectData={selectedProject}
+                />
+                <BurndownChart
                   tasksData={tasksData}
                   projectData={selectedProject}
                 />

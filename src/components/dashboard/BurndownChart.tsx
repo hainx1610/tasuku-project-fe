@@ -41,10 +41,16 @@ function BurndownChart({ tasksData, projectData }: any) {
       <CardContent className="pl-0 pr-3">
         <ResponsiveContainer width={"100%"} height={350}>
           <ComposedChart width={730} height={250} data={data}>
-            <XAxis dataKey="name" angle={-60} textAnchor="end" fontSize={12} />
-            <YAxis />
+            <XAxis
+              dataKey="name"
+              angle={-60}
+              textAnchor="end"
+              fontSize={12}
+              height={50}
+            />
+            <YAxis fontSize={12} />
             <Tooltip />
-            <Legend />
+            <Legend verticalAlign="top" height={36} />
             <CartesianGrid stroke="gray" strokeOpacity={0.4} />
 
             {/* <Area

@@ -38,7 +38,7 @@ function TasksPerStatusChart({ tasksData }: any) {
       <CardHeader>
         <CardTitle>Tasks per Status</CardTitle>
       </CardHeader>
-      <CardContent className="pl-0">
+      <CardContent className="px-0">
         <ResponsiveContainer width={"100%"} height={350}>
           <PieChart>
             <Pie
