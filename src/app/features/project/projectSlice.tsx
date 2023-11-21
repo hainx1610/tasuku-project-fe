@@ -38,7 +38,7 @@ const slice = createSlice({
       state.projectsById[newProject._id] = newProject;
       state.currentProjects.unshift(newProject._id);
 
-      state.selectedProject = action.payload;
+      // state.selectedProject = action.payload;
     },
 
     getSingleProjectSuccess(state, action) {
@@ -69,13 +69,15 @@ const slice = createSlice({
 });
 
 export const createProject =
-  ({ title, description }) =>
+  ({ title, description, from, to }) =>
   async (dispatch: any) => {
     dispatch(slice.actions.startLoading());
     try {
       const response = await apiService.post("/projects", {
         name: title,
         description,
+        startAt: from,
+        endAt: to,
       });
       dispatch(slice.actions.createProjectSuccess(response.data.data));
       toast.success("Your project has been created.");

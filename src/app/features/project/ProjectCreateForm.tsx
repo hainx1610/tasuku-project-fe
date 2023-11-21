@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -18,6 +17,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { useDispatch } from "react-redux";
 import { createProject } from "./projectSlice";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { addDays, format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { DateRange } from "react-day-picker";
+import { Label } from "@/components/ui/label";
 
 const formSchema = z.object({
   title: z
@@ -32,6 +42,10 @@ const formSchema = z.object({
 
 function ProjectCreateForm() {
   const dispatch = useDispatch();
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 3),
+  });
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -49,7 +63,7 @@ function ProjectCreateForm() {
     // ✅ This will be type-safe and validated.
     // console.log(values);
     // dispatch here!
-    dispatch(createProject({ ...values })).then(() => form.reset());
+    dispatch(createProject({ ...values, ...date })).then(() => form.reset());
   }
 
   return (
@@ -85,6 +99,50 @@ function ProjectCreateForm() {
             </FormItem>
           )}
         />
+
+        {/* date picker outside of form fields*/}
+        <div className="flex flex-col ">
+          {/* <FormLabel>length</FormLabel> */}
+          <Label htmlFor="project-length" className="mb-3">
+            length
+          </Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                id="project-length"
+                variant={"outline"}
+                className={cn(
+                  "w-[300px] justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date?.from ? (
+                  date.to ? (
+                    <>
+                      {format(date.from, "LLL dd, y")} -{" "}
+                      {format(date.to, "LLL dd, y")}
+                    </>
+                  ) : (
+                    format(date.from, "LLL dd, y")
+                  )
+                ) : (
+                  <span>Pick a date</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                initialFocus
+                mode="range"
+                defaultMonth={date?.from}
+                selected={date}
+                onSelect={setDate}
+                numberOfMonths={2}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
 
         <Button type="submit">Create</Button>
       </form>
