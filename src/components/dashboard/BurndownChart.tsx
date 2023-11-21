@@ -26,11 +26,11 @@ function BurndownChart({ tasksData, projectData }: any) {
   // add 1 day after end date
   daysList.push(fDateMD(fAddHours(projectData.endAt, 24)));
 
-  const idealTotalEffortHrs = (daysList.length - 1) * 24;
+  const idealTotalEffortHrs = (daysList.length - 1) * 8;
   console.log(daysList);
   const data = daysList.map((day, index) => ({
     name: day,
-    idealEffort: idealTotalEffortHrs - index * 24,
+    idealEffort: idealTotalEffortHrs - index * 8,
   }));
 
   return (
