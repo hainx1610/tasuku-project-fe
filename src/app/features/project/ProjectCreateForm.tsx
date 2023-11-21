@@ -23,7 +23,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { addDays, format } from "date-fns";
+import { addHours, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { DateRange } from "react-day-picker";
@@ -44,7 +44,7 @@ function ProjectCreateForm() {
   const dispatch = useDispatch();
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
-    to: addDays(new Date(), 3),
+    to: addHours(new Date(), 72),
   });
 
   // 1. Define your form.
@@ -61,9 +61,11 @@ function ProjectCreateForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    // console.log(values);
+
     // dispatch here!
-    dispatch(createProject({ ...values, ...date })).then(() => form.reset());
+
+    const data = { ...values, from: date?.from, to: addHours(date?.to, 24) };
+    dispatch(createProject(data)).then(() => form.reset());
   }
 
   return (
