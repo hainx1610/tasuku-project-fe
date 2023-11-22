@@ -26,7 +26,10 @@ function BurndownChart({ tasksData, projectData }: any) {
   // add day 0 before list
   daysList.unshift(fDateMD(fAddHours(projectData.startAt, -24)));
 
-  const idealTotalEffortHrs =
+  const totalEffortHrs =
+    (daysList.length - 1) * 8 * projectData.includeMembers.length;
+
+  let remaingEffortHrs =
     (daysList.length - 1) * 8 * projectData.includeMembers.length;
 
   const effortByDate = tasksData
@@ -43,13 +46,19 @@ function BurndownChart({ tasksData, projectData }: any) {
       {}
     );
 
-  const data = daysList.map((day, index) => ({
-    name: day,
-    idealEffort:
-      idealTotalEffortHrs - index * 8 * projectData.includeMembers.length,
+  const data: any = [];
+  daysList.forEach((day, index) => {
+    const item = {
+      name: day,
+      idealBurndown:
+        totalEffortHrs - index * 8 * projectData.includeMembers.length,
 
-    actualEffort: effortByDate[day] || 0,
-  }));
+      actualEffort: effortByDate[day] || 0,
+    };
+    remaingEffortHrs -= item.actualEffort;
+    data.push({ ...item, remainingEffort: remaingEffortHrs });
+  });
+  console.log(data);
 
   return (
     <Card className=" w-96 m-2">
@@ -68,20 +77,20 @@ function BurndownChart({ tasksData, projectData }: any) {
             />
             <YAxis fontSize={12} />
             <Tooltip />
-            <Legend verticalAlign="top" height={36} />
+            <Legend verticalAlign="top" align="right" height={36} />
             <CartesianGrid stroke="gray" strokeOpacity={0.4} />
 
             <Area
               type="monotone"
-              dataKey="actualEffort"
+              dataKey="remainingEffort"
               fill="#8884d8"
-              name="actual (hrs)"
+              name="remaining (hrs)"
               stroke="#8884d8"
             />
 
             <Line
               type="monotone"
-              dataKey="idealEffort"
+              dataKey="idealBurndown"
               name="ideal (hrs)"
               stroke="blue"
             />
