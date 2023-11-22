@@ -23,14 +23,16 @@ function BurndownChart({ tasksData, projectData }: any) {
   const daysList = getWeekDayList(projectData.startAt, projectData.endAt).map(
     (day) => fDateMD(day)
   );
-  // add 1 day after end date
-  daysList.push(fDateMD(fAddHours(projectData.endAt, 24)));
+  // add day 0 before list
+  daysList.unshift(fDateMD(fAddHours(projectData.startAt, -24)));
 
-  const idealTotalEffortHrs = (daysList.length - 1) * 8;
+  const idealTotalEffortHrs =
+    (daysList.length - 1) * 8 * projectData.includeMembers.length;
 
   const data = daysList.map((day, index) => ({
     name: day,
-    idealEffort: idealTotalEffortHrs - index * 8,
+    idealEffort:
+      idealTotalEffortHrs - index * 8 * projectData.includeMembers.length,
   }));
 
   return (
@@ -63,7 +65,7 @@ function BurndownChart({ tasksData, projectData }: any) {
             <Line
               type="monotone"
               dataKey="idealEffort"
-              name="ideal"
+              name="ideal (hrs)"
               stroke="blue"
             />
           </ComposedChart>
