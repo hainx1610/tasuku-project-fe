@@ -77,14 +77,14 @@ function BurndownChart({ tasksData, projectData }: any) {
             />
             <YAxis fontSize={12} />
             <Tooltip />
-            <Legend verticalAlign="top" align="right" height={36} />
+            <Legend verticalAlign="top" height={36} />
             <CartesianGrid stroke="gray" strokeOpacity={0.4} />
 
             <Area
               type="monotone"
               dataKey="remainingEffort"
               fill="#8884d8"
-              name="remaining (hrs)"
+              name="actual (hrs)"
               stroke="#8884d8"
             />
 

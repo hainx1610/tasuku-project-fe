@@ -155,7 +155,7 @@ export const getTasksByProject = (taskId) => async (dispatch) => {
 };
 
 export const editTask =
-  ({ description, status, priority, taskId, assignedTo, dueDate }) =>
+  ({ description, status, priority, taskId, assignedTo, dueDate, effort }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
@@ -166,6 +166,7 @@ export const editTask =
         priority,
         assignedTo,
         dueDate,
+        effort,
       });
       // console.log(response);
       dispatch(slice.actions.editTaskSuccess(response.data.data));

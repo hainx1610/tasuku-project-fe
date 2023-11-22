@@ -43,6 +43,7 @@ import {
   AlertDialogTitle,
   // AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { TaskEffortForm } from "@/app/features/task/TaskEffortForm";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -85,6 +86,7 @@ export function DataTableRowActions<TData>({
   const navigate = useNavigate();
 
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [isTaskEffortOpen, setIsTaskEffortOpen] = useState(false);
 
   return (
     <>
@@ -142,12 +144,16 @@ export function DataTableRowActions<TData>({
                       const targetValue = (
                         e.target as HTMLTextAreaElement
                       ).getAttribute("data-set");
-                      dispatch(
-                        editTask({
-                          status: targetValue,
-                          taskId: task._id,
-                        })
-                      );
+                      if (targetValue === "done") {
+                        setIsTaskEffortOpen(true);
+                      } else {
+                        dispatch(
+                          editTask({
+                            status: targetValue,
+                            taskId: task._id,
+                          })
+                        );
+                      }
                     }}
                   >
                     {status.label}
@@ -220,6 +226,11 @@ export function DataTableRowActions<TData>({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <TaskEffortForm
+        isTaskEffortOpen={isTaskEffortOpen}
+        setIsTaskEffortOpen={setIsTaskEffortOpen}
+        taskId={task._id}
+      />
     </>
   );
 }
