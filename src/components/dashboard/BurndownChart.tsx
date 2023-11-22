@@ -29,10 +29,26 @@ function BurndownChart({ tasksData, projectData }: any) {
   const idealTotalEffortHrs =
     (daysList.length - 1) * 8 * projectData.includeMembers.length;
 
+  const effortByDate = tasksData
+    .map((task: any) => ({
+      date: task.dateCompleted ? fDateMD(task.dateCompleted) : null,
+      effort: task.effort ? task.effort : null,
+    }))
+    .reduce(
+      // @ts-ignore
+      (acc, { date, effort }) => ({
+        ...acc,
+        [date]: (acc[date] || 0) + effort,
+      }),
+      {}
+    );
+
   const data = daysList.map((day, index) => ({
     name: day,
     idealEffort:
       idealTotalEffortHrs - index * 8 * projectData.includeMembers.length,
+
+    actualEffort: effortByDate[day] || 0,
   }));
 
   return (
@@ -55,12 +71,13 @@ function BurndownChart({ tasksData, projectData }: any) {
             <Legend verticalAlign="top" height={36} />
             <CartesianGrid stroke="gray" strokeOpacity={0.4} />
 
-            {/* <Area
+            <Area
               type="monotone"
-              dataKey="amt"
+              dataKey="actualEffort"
               fill="#8884d8"
+              name="actual (hrs)"
               stroke="#8884d8"
-            /> */}
+            />
 
             <Line
               type="monotone"

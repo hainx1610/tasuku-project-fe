@@ -24,7 +24,6 @@ function TasksPerMemberChart({ tasksData, projectData }: any) {
     name,
     occurence: taskAssigneeSummary[name] || 0,
   }));
-  console.log(data);
 
   // const data = Object.keys(taskAssigneeSummary).map((assignee) => ({
   //   assignee,

@@ -44,8 +44,8 @@ const defaultCols = [
     title: "Done",
   },
   // {
-  //   id: "archive" as const,
-  //   title: "Archive",
+  //   id: "archived" as const,
+  //   title: "Archived",
   // },
 ] satisfies Column[];
 
