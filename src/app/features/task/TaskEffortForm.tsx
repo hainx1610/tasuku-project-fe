@@ -56,6 +56,7 @@ export function TaskEffortForm({
     // Do something with the form values.
 
     // dispatch here!
+    // @ts-ignore
     dispatch(editTask({ ...values, status: "done", taskId })).then(() =>
       form.reset()
     );

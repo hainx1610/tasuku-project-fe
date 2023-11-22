@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import TaskEditSheet from "@/app/features/task/TaskEditSheet";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import {
   deleteTask,
@@ -28,7 +28,6 @@ import {
 } from "@/app/features/task/taskSlice";
 import { statuses } from "@/app/features/task/taskProperties";
 import useAuth from "@/hooks/useAuth";
-import { getUsersByProject } from "@/app/features/user/userSlice";
 
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 

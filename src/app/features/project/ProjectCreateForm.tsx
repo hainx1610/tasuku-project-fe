@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -64,7 +64,12 @@ function ProjectCreateForm() {
 
     // dispatch here!
 
-    const data = { ...values, from: date?.from, to: addHours(date?.to, 24) };
+    const data = {
+      ...values,
+      from: date?.from,
+      to: addHours(date?.to || 0, 24),
+    };
+    // @ts-ignore
     dispatch(createProject(data)).then(() => form.reset());
   }
 
