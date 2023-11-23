@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/form";
 import { useDispatch } from "react-redux";
 import { editTask } from "./taskSlice";
+import apiService from "@/app/apiService";
+import { toast } from "react-toastify";
 
 const formSchema = z.object({
   effort: z.coerce
@@ -36,8 +38,10 @@ const formSchema = z.object({
 });
 
 export function TaskEffortForm({
-  isTaskEffortOpen,
-  setIsTaskEffortOpen,
+  isTaskEffortOpenByTable,
+  setIsTaskEffortOpenByTable,
+  isTaskEffortOpenByKanban,
+  setIsTaskEffortOpenByKanban,
   taskId,
 }: any) {
   const dispatch = useDispatch();
@@ -55,22 +59,45 @@ export function TaskEffortForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
 
-    // dispatch here!
-    // @ts-ignore
-    dispatch(editTask({ ...values, status: "done", taskId })).then(() =>
-      form.reset()
-    );
-    setIsTaskEffortOpen(false);
+    // if opened by table
+    if (isTaskEffortOpenByTable) {
+      // @ts-ignore
+      dispatch(editTask({ ...values, status: "done", taskId })).then(() =>
+        form.reset()
+      );
+      setIsTaskEffortOpenByTable(false);
+    }
+    // if opened by kanban
+    if (isTaskEffortOpenByKanban) {
+      try {
+        const response = await apiService.put(`/tasks/${taskId}`, {
+          ...values,
+          status: "done",
+        });
+        console.log(response);
+
+        toast.success("Your task has been updated.");
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+      setIsTaskEffortOpenByKanban(false);
+    }
   }
 
   return (
-    <Dialog open={isTaskEffortOpen} onOpenChange={setIsTaskEffortOpen}>
+    <Dialog
+      open={isTaskEffortOpenByTable || isTaskEffortOpenByKanban}
+      onOpenChange={() => {
+        if (isTaskEffortOpenByTable) setIsTaskEffortOpenByTable();
+        if (isTaskEffortOpenByKanban) setIsTaskEffortOpenByKanban();
+      }}
+    >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Effort Confirmation</DialogTitle>
           <DialogDescription>
             Enter the number of hours spent on this task. This will be used to
-            improve peformance.
+            improve productivity.
           </DialogDescription>
         </DialogHeader>
 

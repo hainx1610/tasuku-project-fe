@@ -41,7 +41,7 @@ import {
 const formSchema = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
-  status: z.string().optional(),
+  // status: z.string().optional(),
   priority: z.string().optional(),
   dueDate: z.date().optional(),
 });
@@ -55,7 +55,7 @@ function TaskEditForm({ task }) {
     defaultValues: {
       title: task?.name || "",
       description: task?.description || "",
-      status: task?.status || "",
+      // status: task?.status || "",
       priority: task?.priority || "",
       dueDate: task.dueDate ? new Date(task?.dueDate) : undefined,
     },
@@ -108,7 +108,7 @@ function TaskEditForm({ task }) {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="status"
           render={({ field }) => (
@@ -131,7 +131,7 @@ function TaskEditForm({ task }) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <FormField
           control={form.control}

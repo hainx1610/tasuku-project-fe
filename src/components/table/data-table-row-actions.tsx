@@ -85,7 +85,7 @@ export function DataTableRowActions<TData>({
   const navigate = useNavigate();
 
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [isTaskEffortOpen, setIsTaskEffortOpen] = useState(false);
+  const [isTaskEffortOpenByTable, setIsTaskEffortOpenByTable] = useState(false);
 
   return (
     <>
@@ -144,7 +144,7 @@ export function DataTableRowActions<TData>({
                         e.target as HTMLTextAreaElement
                       ).getAttribute("data-set");
                       if (targetValue === "done") {
-                        setIsTaskEffortOpen(true);
+                        setIsTaskEffortOpenByTable(true);
                       } else {
                         dispatch(
                           editTask({
@@ -226,8 +226,8 @@ export function DataTableRowActions<TData>({
         </AlertDialogContent>
       </AlertDialog>
       <TaskEffortForm
-        isTaskEffortOpen={isTaskEffortOpen}
-        setIsTaskEffortOpen={setIsTaskEffortOpen}
+        isTaskEffortOpenByTable={isTaskEffortOpenByTable}
+        setIsTaskEffortOpenByTable={setIsTaskEffortOpenByTable}
         taskId={task._id}
       />
     </>

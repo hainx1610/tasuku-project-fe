@@ -24,6 +24,7 @@ import { coordinateGetter } from "./multipleContainersKeyboardPreset";
 
 import apiService from "@/app/apiService";
 import { toast } from "react-toastify";
+import { TaskEffortForm } from "@/app/features/task/TaskEffortForm";
 
 const defaultCols = [
   {
@@ -72,6 +73,11 @@ export function KanbanBoard({ tasksData }) {
   const [startTaskColumnId, setStartTaskColumnId] = useState<ColumnId | null>(
     null
   );
+
+  const [isTaskEffortOpenByKanban, setIsTaskEffortOpenByKanban] =
+    useState(false);
+
+  const [taskId, setTaskId] = useState(null);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -188,44 +194,51 @@ export function KanbanBoard({ tasksData }) {
   };
 
   return (
-    <DndContext
-      accessibility={{
-        announcements,
-      }}
-      sensors={sensors}
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
-      onDragOver={onDragOver}
-    >
-      <BoardContainer>
-        <SortableContext items={columnsId}>
-          {columns.map((col) => (
-            <BoardColumn
-              key={col.id}
-              column={col}
-              tasks={tasks.filter((task) => task.columnId === col.id)}
-            />
-          ))}
-        </SortableContext>
-      </BoardContainer>
-
-      {"document" in window &&
-        createPortal(
-          <DragOverlay>
-            {activeColumn && (
+    <>
+      <DndContext
+        accessibility={{
+          announcements,
+        }}
+        sensors={sensors}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        onDragOver={onDragOver}
+      >
+        <BoardContainer>
+          <SortableContext items={columnsId}>
+            {columns.map((col) => (
               <BoardColumn
-                isOverlay
-                column={activeColumn}
-                tasks={tasks.filter(
-                  (task) => task.columnId === activeColumn.id
-                )}
+                key={col.id}
+                column={col}
+                tasks={tasks.filter((task) => task.columnId === col.id)}
               />
-            )}
-            {activeTask && <TaskCard task={activeTask} isOverlay />}
-          </DragOverlay>,
-          document.body
-        )}
-    </DndContext>
+            ))}
+          </SortableContext>
+        </BoardContainer>
+
+        {"document" in window &&
+          createPortal(
+            <DragOverlay>
+              {activeColumn && (
+                <BoardColumn
+                  isOverlay
+                  column={activeColumn}
+                  tasks={tasks.filter(
+                    (task) => task.columnId === activeColumn.id
+                  )}
+                />
+              )}
+              {activeTask && <TaskCard task={activeTask} isOverlay />}
+            </DragOverlay>,
+            document.body
+          )}
+      </DndContext>
+      <TaskEffortForm
+        isTaskEffortOpenByKanban={isTaskEffortOpenByKanban}
+        setIsTaskEffortOpenByKanban={setIsTaskEffortOpenByKanban}
+        taskId={taskId}
+      />
+    </>
   );
 
   function onDragStart(event: DragStartEvent) {
@@ -263,15 +276,20 @@ export function KanbanBoard({ tasksData }) {
       // nothing if task dragged but still in that column
       if (activeTask.columnId === startTaskColumnId) return;
 
-      try {
-        const response = await apiService.put(`/tasks/${activeTask.id}`, {
-          status: activeTask.columnId,
-        });
-        console.log(response);
-
-        toast.success("Your task has been updated.");
-      } catch (error: any) {
-        toast.error(error.message);
+      // if "done" open effort dialog
+      if (activeTask.columnId === "done") {
+        setTaskId(activeTask.id);
+        setIsTaskEffortOpenByKanban(true);
+      } else {
+        try {
+          const response = await apiService.put(`/tasks/${activeTask.id}`, {
+            status: activeTask.columnId,
+          });
+          console.log(response);
+          toast.success("Your task has been updated.");
+        } catch (error: any) {
+          toast.error(error.message);
+        }
       }
     }
 
