@@ -3,14 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  // DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  // DialogTrigger,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  // AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  // AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 
 import {
@@ -85,21 +85,21 @@ export function TaskEffortForm({
   }
 
   return (
-    <Dialog
+    <AlertDialog
       open={isTaskEffortOpenByTable || isTaskEffortOpenByKanban}
       onOpenChange={() => {
-        if (isTaskEffortOpenByTable) setIsTaskEffortOpenByTable();
-        if (isTaskEffortOpenByKanban) setIsTaskEffortOpenByKanban();
+        // if (isTaskEffortOpenByTable) setIsTaskEffortOpenByTable();
+        // if (isTaskEffortOpenByKanban) setIsTaskEffortOpenByKanban();
       }}
     >
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Effort Confirmation</DialogTitle>
-          <DialogDescription>
+      <AlertDialogContent className="sm:max-w-[425px]">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Effort Confirmation</AlertDialogTitle>
+          <AlertDialogDescription>
             Enter the number of hours spent on this task. This will be used to
             improve productivity.
-          </DialogDescription>
-        </DialogHeader>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -121,7 +121,7 @@ export function TaskEffortForm({
             <Button type="submit">Submit</Button>
           </form>
         </Form>
-      </DialogContent>
-    </Dialog>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
