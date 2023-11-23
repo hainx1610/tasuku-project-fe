@@ -24,7 +24,7 @@ function NotificationsBell() {
       const response = await apiService.get(
         `/notifications/users/${user?._id}`
       );
-      console.log(response.data.data, "response");
+      console.log(response.data);
       setNotifications(response.data.data);
     };
     getNotifications();

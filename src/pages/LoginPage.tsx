@@ -185,31 +185,6 @@ function LoginPage() {
         <LogInIcon size={16} className="mr-1" />
         Sign in with Google
       </Button>
-
-      <Alert className="w-70 my-2 pb-2 mb-5">
-        <Info className="h-4 w-4" />
-        {/* <AlertTitle>Don't have an account? Get Started</AlertTitle> */}
-        <AlertDescription>
-          <Dialog>
-            <DialogTrigger className=" text-orange-500 hover:underline">
-              Forgot password?
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Forgot your password?</DialogTitle>
-                <DialogDescription>
-                  A new temporary password will be sent to your email address.
-                  After logging in, please change it immediately.
-                </DialogDescription>
-              </DialogHeader>
-              <UserForgotPasswordForm />
-              <DialogFooter>
-                <Button type="submit">Send email</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </AlertDescription>
-      </Alert>
     </Form>
   );
 }
