@@ -31,15 +31,16 @@ export default function ProjectPage() {
 
   const dispatch = useDispatch();
 
-  const { selectedProject, isLoading } = useSelector(
+  const { selectedProject, isLoading: isProjectLoading } = useSelector(
     (state: any) => state.project,
     shallowEqual
   );
 
-  const { tasksById, currentPageTasks } = useSelector(
-    (state: any) => state.task,
-    shallowEqual
-  );
+  const {
+    tasksById,
+    currentPageTasks,
+    isLoading: areTasksLoading,
+  } = useSelector((state: any) => state.task, shallowEqual);
 
   useEffect(() => {
     if (projectId) {
@@ -54,7 +55,7 @@ export default function ProjectPage() {
 
   return (
     <div className="container mx-auto py-10 mt-14">
-      {isLoading ? (
+      {isProjectLoading ? (
         <LoadingScreen />
       ) : (
         <div className="flex flex-col justify-center items-center space-y-8">
@@ -97,25 +98,39 @@ export default function ProjectPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="data-table" className="">
-              <DataTable columns={columns} data={tasksData ? tasksData : []} />
+              {areTasksLoading ? (
+                <LoadingScreen />
+              ) : (
+                <DataTable
+                  columns={columns}
+                  data={tasksData ? tasksData : []}
+                />
+              )}
             </TabsContent>
             <TabsContent value="data-kanban">
-              <KanbanBoard tasksData={tasksData} />
+              {areTasksLoading ? (
+                <LoadingScreen />
+              ) : (
+                <KanbanBoard tasksData={tasksData} />
+              )}
             </TabsContent>
             <TabsContent value="data-dashboard" className="w-screen">
-              {/* <ProjectDashboard tasksData={tasksData} /> */}
-              <div className="flex flex-wrap flex-row  justify-center items-center">
-                <TasksPerStatusChart tasksData={tasksData} />
-                <TasksPerPriorityChart tasksData={tasksData} />
-                <TasksPerMemberChart
-                  tasksData={tasksData}
-                  projectData={selectedProject}
-                />
-                <BurndownChart
-                  tasksData={tasksData}
-                  projectData={selectedProject}
-                />
-              </div>
+              {areTasksLoading ? (
+                <LoadingScreen />
+              ) : (
+                <div className="flex flex-wrap flex-row  justify-center items-center">
+                  <TasksPerStatusChart tasksData={tasksData} />
+                  <TasksPerPriorityChart tasksData={tasksData} />
+                  <TasksPerMemberChart
+                    tasksData={tasksData}
+                    projectData={selectedProject}
+                  />
+                  <BurndownChart
+                    tasksData={tasksData}
+                    projectData={selectedProject}
+                  />
+                </div>
+              )}
             </TabsContent>
           </Tabs>
 

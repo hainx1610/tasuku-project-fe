@@ -58,7 +58,6 @@ function BurndownChart({ tasksData, projectData }: any) {
     remaingEffortHrs -= item.actualEffort;
     data.push({ ...item, remainingEffort: remaingEffortHrs });
   });
-  console.log(data);
 
   return (
     <Card className=" w-96 m-2">
