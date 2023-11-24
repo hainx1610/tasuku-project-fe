@@ -31,12 +31,12 @@ export default function ProjectPage() {
 
   const dispatch = useDispatch();
 
-  const { selectedProject } = useSelector(
+  const { selectedProject, isLoading } = useSelector(
     (state: any) => state.project,
     shallowEqual
   );
 
-  const { tasksById, currentPageTasks, isLoading } = useSelector(
+  const { tasksById, currentPageTasks } = useSelector(
     (state: any) => state.task,
     shallowEqual
   );

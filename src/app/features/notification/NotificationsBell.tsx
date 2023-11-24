@@ -66,7 +66,7 @@ function NotificationsBell() {
 
   subscription.addEventListener("error", () => {
     setIsAlertOpen(true);
-    // toast.error("Subscription to Notifications error");
+    console.error("Subscription to Notifications error");
   });
 
   subscription.addEventListener("message", () => {
