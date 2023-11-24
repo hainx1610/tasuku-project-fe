@@ -1,5 +1,3 @@
-// import LoadingScreen from "@/components/LoadingScreen";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
