@@ -14,9 +14,23 @@ import apiService from "@/app/apiService";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  // AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  // AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useNavigate } from "react-router-dom";
+
 function NotificationsBell() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [notifications, setNotifications] = useState([]);
+
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const navigate = useNavigate();
 
   // first time
   useEffect(() => {
@@ -51,7 +65,8 @@ function NotificationsBell() {
   // });
 
   subscription.addEventListener("error", () => {
-    toast.error("Subscription to Notifications error");
+    setIsAlertOpen(true);
+    // toast.error("Subscription to Notifications error");
   });
 
   subscription.addEventListener("message", () => {
@@ -74,53 +89,89 @@ function NotificationsBell() {
   };
 
   return (
-    <MenubarMenu>
-      <MenubarTrigger>
-        {notifications.length ? (
-          <BellDot className="fill-red-400 hover:cursor-pointer" size={20} />
-        ) : (
-          <Bell size={20} />
-        )}
-      </MenubarTrigger>
-      <MenubarContent>
-        {notifications.length ? (
-          <Card className="w-[380px] mt-5 border-none -mb-3 ">
-            <CardFooter>
-              <Button
-                className="w-full"
-                variant={"ghost"}
-                onClick={handleMarkAllRead}
-              >
-                <Check className="mr-2 h-4 w-4" /> Mark all as read
-              </Button>
-            </CardFooter>
-            <CardContent className="grid gap-4">
-              <div className=" max-h-[70vh] overflow-auto">
-                {notifications.map((notification: any) => (
-                  <div
-                    key={notification._id}
-                    className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
-                  >
-                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {notification.title}
-                        {/* {"A task has been updated."} */}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {notification.message}
-                      </p>
+    <>
+      <MenubarMenu>
+        <MenubarTrigger>
+          {notifications.length ? (
+            <BellDot className="fill-red-400 hover:cursor-pointer" size={20} />
+          ) : (
+            <Bell size={20} />
+          )}
+        </MenubarTrigger>
+        <MenubarContent>
+          {notifications.length ? (
+            <Card className="w-[380px] mt-5 border-none -mb-3 ">
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  variant={"ghost"}
+                  onClick={handleMarkAllRead}
+                >
+                  <Check className="mr-2 h-4 w-4" /> Mark all as read
+                </Button>
+              </CardFooter>
+              <CardContent className="grid gap-4">
+                <div className=" max-h-[70vh] overflow-auto">
+                  {notifications.map((notification: any) => (
+                    <div
+                      key={notification._id}
+                      className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
+                    >
+                      <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium leading-none">
+                          {notification.title}
+                          {/* {"A task has been updated."} */}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {notification.message}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ) : (
-          <span>No notifications at the moment.</span>
-        )}
-      </MenubarContent>
-    </MenubarMenu>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <span>No notifications at the moment.</span>
+          )}
+        </MenubarContent>
+      </MenubarMenu>
+
+      {/* alert when subscription dies */}
+      <AlertDialog open={isAlertOpen}>
+        <AlertDialogContent className="sm:max-w-[425px]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Session expired</AlertDialogTitle>
+            <AlertDialogDescription>
+              Your session has expired. Please refresh or log in again.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <div className="flex justify-end space-x-2">
+            <Button
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              Refresh
+            </Button>
+            <Button
+              variant={"ghost"}
+              onClick={() => {
+                if (logout === undefined) {
+                  console.error("Logout func undefined");
+                } else {
+                  logout(() => navigate("/login"));
+                }
+              }}
+            >
+              Log in
+            </Button>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
 
