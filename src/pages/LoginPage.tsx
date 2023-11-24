@@ -29,15 +29,14 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
+  // DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import UserForgotPasswordForm from "@/app/features/user/userForgotPasswordForm";
-
 import { BASE_URL } from "@/app/config";
+import UserEmailResetPasswordForm from "@/app/features/user/UserEmailResetPasswordForm";
 
 const formSchema = z.object({
   email: z
@@ -198,14 +197,14 @@ function LoginPage() {
               <DialogHeader>
                 <DialogTitle>Forgot your password?</DialogTitle>
                 <DialogDescription>
-                  A new temporary password will be sent to your email address.
-                  After logging in, please change it immediately.
+                  A link to reset your password will be sent to you. The process
+                  can take several minutes.
                 </DialogDescription>
               </DialogHeader>
-              <UserForgotPasswordForm />
-              <DialogFooter>
+              <UserEmailResetPasswordForm />
+              {/* <DialogFooter>
                 <Button type="submit">Send email</Button>
-              </DialogFooter>
+              </DialogFooter> */}
             </DialogContent>
           </Dialog>
         </AlertDescription>

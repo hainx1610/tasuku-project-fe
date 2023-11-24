@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,7 +50,7 @@ function UserPasswordChangeForm() {
       await logout(() => {
         navigate("/login");
       });
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error);
     }
   };
@@ -61,7 +60,7 @@ function UserPasswordChangeForm() {
 
     try {
       await apiService
-        .post(`users/me/change_password`, { ...values })
+        .post(`/users/me/change_password`, { ...values })
         .then(() => form.reset());
       toast.success("Password changed succesfully. Logging out...");
       setTimeout(handleLogout, 3000);

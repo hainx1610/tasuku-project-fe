@@ -9,6 +9,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import AuthRequire from "./AuthRequire";
 import TaskDetails from "@/pages/TaskDetails";
 import ProjectPage from "@/pages/ProjectPage";
+import ResetPassword from "@/pages/ResetPassword";
 
 function Router() {
   return (
@@ -30,6 +31,7 @@ function Router() {
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/reset_password" element={<ResetPassword />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

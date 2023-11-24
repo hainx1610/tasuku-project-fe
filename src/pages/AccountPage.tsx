@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAuth from "@/hooks/useAuth";
-import UserPasswordChangeForm from "@/app/features/user/userPasswordChangeForm";
+import UserPasswordChangeForm from "@/app/features/user/UserPasswordChangeForm";
 
 function AccountPage() {
   const { user } = useAuth();
