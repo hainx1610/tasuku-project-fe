@@ -30,7 +30,7 @@ const formSchema = z.object({
     .min(1, { message: "New password is required" }),
 });
 
-function UserPasswordChangeForm() {
+function UserChangePasswordForm() {
   const { logout } = useAuth();
 
   // 1. Define your form.
@@ -128,4 +128,4 @@ function UserPasswordChangeForm() {
   );
 }
 
-export default UserPasswordChangeForm;
+export default UserChangePasswordForm;

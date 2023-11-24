@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useAuth from "@/hooks/useAuth";
-import UserPasswordChangeForm from "@/app/features/user/UserPasswordChangeForm";
+import UserChangePasswordForm from "@/app/features/user/UserChangePasswordForm";
 
 function AccountPage() {
   const { user } = useAuth();
@@ -76,7 +76,8 @@ function AccountPage() {
               <Label htmlFor="new">New password</Label>
               <Input id="new" type="password" />
             </div> */}
-              <UserPasswordChangeForm />
+
+              <UserChangePasswordForm />
             </CardContent>
             {/* <CardFooter>
             <Button>Save password</Button>
