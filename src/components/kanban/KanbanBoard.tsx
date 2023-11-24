@@ -25,6 +25,7 @@ import { coordinateGetter } from "./multipleContainersKeyboardPreset";
 import apiService from "@/app/apiService";
 import { toast } from "react-toastify";
 import { TaskEffortForm } from "@/app/features/task/TaskEffortForm";
+import useAuth from "@/hooks/useAuth";
 
 const defaultCols = [
   {
@@ -54,7 +55,12 @@ export type ColumnId = (typeof defaultCols)[number]["id"];
 
 //@ts-ignore
 export function KanbanBoard({ tasksData }) {
-  const initialTasks = tasksData.map((task: any) => ({
+  const { user } = useAuth();
+  const filteredTaskData =
+    user!.role === "manager"
+      ? tasksData
+      : tasksData.filter((task: any) => task.assignedTo?._id === user?._id);
+  const initialTasks = filteredTaskData.map((task: any) => ({
     ...task,
     id: task._id,
     columnId: task.status,

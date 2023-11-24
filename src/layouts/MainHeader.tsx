@@ -31,7 +31,9 @@ function MainHeader() {
       // handleMenuClose();
       if (!logout) throw new Error("Logout func undefined");
       await logout(() => {
+        // navigate("/");
         navigate("/login");
+        window.location.reload();
       });
     } catch (error) {
       console.error(error);
