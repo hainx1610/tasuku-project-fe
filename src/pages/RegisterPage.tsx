@@ -57,13 +57,9 @@ const formSchema = z
       required_error: "Password needs to be confirmed",
     }),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-      });
-    }
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords did not match",
+    path: ["confirmPassword"],
   });
 
 function RegisterPage() {

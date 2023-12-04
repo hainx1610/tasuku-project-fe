@@ -21,14 +21,22 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 
-const formSchema = z.object({
-  currentPassword: z
-    .string({ required_error: "Current password is required" })
-    .min(1, { message: "Password is required" }),
-  newPassword: z
-    .string({ required_error: "New password is required" })
-    .min(1, { message: "New password is required" }),
-});
+const formSchema = z
+  .object({
+    currentPassword: z
+      .string({ required_error: "Current password is required" })
+      .min(1, { message: "Password is required" }),
+    newPassword: z
+      .string({ required_error: "New password is required" })
+      .min(1, { message: "New password is required" }),
+    confirmPassword: z.string({
+      required_error: "Password needs to be confirmed",
+    }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords did not match",
+    path: ["confirmPassword"],
+  });
 
 function UserChangePasswordForm() {
   const { logout } = useAuth();
@@ -39,6 +47,7 @@ function UserChangePasswordForm() {
     defaultValues: {
       currentPassword: "",
       newPassword: "",
+      confirmPassword: "",
     },
   });
 
@@ -71,6 +80,7 @@ function UserChangePasswordForm() {
 
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <Form {...form}>
@@ -114,6 +124,30 @@ function UserChangePasswordForm() {
                 </FormControl>
                 <Toggle onClick={() => setShowNewPassword(!showNewPassword)}>
                   {showNewPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                </Toggle>
+              </div>
+              <FormDescription></FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm password</FormLabel>
+              <div className="flex ">
+                <FormControl>
+                  <Input
+                    type={showConfirmPassword ? "text" : "password"}
+                    {...field}
+                  />
+                </FormControl>
+                <Toggle
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
                 </Toggle>
               </div>
               <FormDescription></FormDescription>

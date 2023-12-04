@@ -32,11 +32,19 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loader2, ShieldAlert } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-const formSchema = z.object({
-  newPassword: z
-    .string({ required_error: "New password is required" })
-    .min(1, { message: "New password is required" }),
-});
+const formSchema = z
+  .object({
+    newPassword: z
+      .string({ required_error: "New password is required" })
+      .min(1, { message: "New password is required" }),
+    confirmPassword: z.string({
+      required_error: "Password needs to be confirmed",
+    }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords did not match",
+    path: ["confirmPassword"],
+  });
 
 function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -44,12 +52,14 @@ function ResetPassword() {
   const token = searchParams.get("token");
 
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       newPassword: "",
+      confirmPassword: "",
     },
   });
 
@@ -122,6 +132,36 @@ function ResetPassword() {
                         onClick={() => setShowNewPassword(!showNewPassword)}
                       >
                         {showNewPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
+                      </Toggle>
+                    </div>
+                    <FormDescription></FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Confirm password</FormLabel>
+                    <div className="flex ">
+                      <FormControl>
+                        <Input
+                          type={showConfirmPassword ? "text" : "password"}
+                          {...field}
+                        />
+                      </FormControl>
+                      <Toggle
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOpenIcon />
+                        ) : (
+                          <EyeClosedIcon />
+                        )}
                       </Toggle>
                     </div>
                     <FormDescription></FormDescription>

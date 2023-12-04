@@ -68,15 +68,6 @@ function AccountPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              {/* <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
-            </div> */}
-
               <UserChangePasswordForm />
             </CardContent>
             {/* <CardFooter>
