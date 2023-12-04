@@ -1,5 +1,7 @@
 # Tasuku - Company Task Management
 
+visit https://tasuku1.netlify.app to take a look!
+
 Our startup company is in need of a simple task management web app that allows our team managers and their team members to create and manage their tasks. The app is designed to help individuals and teams stay organized and on track with their daily tasks and projects.
 
 ## User Stories
