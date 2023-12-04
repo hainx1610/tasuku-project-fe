@@ -60,21 +60,10 @@ export function DataTableRowActions<TData>({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // const { selectedProject } = useSelector(
-  //   (state) => state.project,
-  //   shallowEqual
-  // );
-
-  // const projectId = selectedProject?._id;
-
   const { usersById, currentUsers } = useSelector(
     (state) => state.user,
     shallowEqual
   );
-
-  // useEffect(() => {
-  //   if (projectId) dispatch(getUsersByProject(projectId));
-  // }, [dispatch, projectId]);
 
   const currentMembers = currentUsers.map((userId) => usersById[userId]);
   const members =
@@ -133,27 +122,25 @@ export function DataTableRowActions<TData>({
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>Set Status</DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
-              <DropdownMenuRadioGroup value={task.status}>
+              <DropdownMenuRadioGroup
+                value={task.status}
+                onValueChange={(value) => {
+                  if (value === "done") {
+                    setIsTaskEffortOpenByTable(true);
+                  } else {
+                    dispatch(
+                      editTask({
+                        status: value,
+                        taskId: task._id,
+                      })
+                    );
+                  }
+                }}
+              >
                 {statuses.map((status) => (
                   <DropdownMenuRadioItem
                     key={status.value}
                     value={status.value}
-                    data-set={status.value}
-                    onClick={async (e) => {
-                      const targetValue = (
-                        e.target as HTMLTextAreaElement
-                      ).getAttribute("data-set");
-                      if (targetValue === "done") {
-                        setIsTaskEffortOpenByTable(true);
-                      } else {
-                        dispatch(
-                          editTask({
-                            status: targetValue,
-                            taskId: task._id,
-                          })
-                        );
-                      }
-                    }}
                   >
                     {status.label}
                   </DropdownMenuRadioItem>
@@ -165,25 +152,19 @@ export function DataTableRowActions<TData>({
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>Assign to</DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
-              <DropdownMenuRadioGroup value={task.assignedTo?._id}>
+              <DropdownMenuRadioGroup
+                value={task.assignedTo?._id}
+                onValueChange={(value) => {
+                  dispatch(
+                    editTask({
+                      assignedTo: value,
+                      taskId: task._id,
+                    })
+                  );
+                }}
+              >
                 {members.map((member) => (
-                  <DropdownMenuRadioItem
-                    key={member._id}
-                    value={member._id}
-                    data-set={member._id}
-                    onClick={async (e) => {
-                      const targetValue = (
-                        e.target as HTMLTextAreaElement
-                      ).getAttribute("data-set");
-
-                      dispatch(
-                        editTask({
-                          assignedTo: targetValue,
-                          taskId: task._id,
-                        })
-                      );
-                    }}
-                  >
+                  <DropdownMenuRadioItem key={member._id} value={member._id}>
                     {`${member.name} - ${member.email}`}
                     {user?._id === member._id ? " (me)" : ""}
                   </DropdownMenuRadioItem>
