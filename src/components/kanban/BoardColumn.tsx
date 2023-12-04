@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Button } from "../ui/button";
 import { GripVertical } from "lucide-react";
 
+import { statuses } from "@/app/features/task/taskProperties";
+
 export interface Column {
   id: UniqueIdentifier;
   title: string;
@@ -55,7 +57,7 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
   };
 
   const variants = cva(
-    "h-[500px] max-h-[500px] w-[200px] max-w-full bg-secondary flex flex-col flex-shrink-0 snap-center",
+    "h-[500px] max-h-[500px] w-72 m-1 max-w-full bg-secondary flex flex-col flex-shrink-0 snap-center",
     {
       variants: {
         dragging: {
@@ -66,6 +68,10 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
       },
     }
   );
+
+  const columnProperties = statuses.filter(
+    (status) => status.label === column.title
+  )[0];
 
   return (
     <Card
@@ -85,7 +91,18 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
           <span className="sr-only">{`Move column: ${column.title}`}</span>
           <GripVertical />
         </Button>
-        <span className="ml-auto"> {column.title}</span>
+        <div className="flex items-center justify-end space-x-1  w-full">
+          <columnProperties.icon
+            className="mr-2 h-4 w-4 text-muted-foreground"
+            style={{ color: `${columnProperties.color}` }}
+          />
+          <span
+            className="ml-auto text-xs lg:text-base"
+            style={{ color: columnProperties.color }}
+          >
+            {column.title}
+          </span>
+        </div>
       </CardHeader>
       <CardContent className="flex flex-grow flex-col gap-4 p-2 overflow-y-auto overflow-x-hidden">
         <SortableContext items={tasksIds}>
@@ -119,7 +136,7 @@ export function BoardContainer({ children }: { children: React.ReactNode }) {
         dragging: dndContext.active ? "active" : "default",
       })}
     >
-      <div className="flex gap-4 items-center flex-row justify-center">
+      <div className="flex flex-wrap flex-row  justify-center items-center">
         {children}
       </div>
     </div>
