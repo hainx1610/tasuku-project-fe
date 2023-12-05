@@ -1,4 +1,4 @@
-// @ts-nocheck
+//@ts-nocheck
 import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ import { Toggle } from "@/components/ui/toggle";
 import { EyeOpenIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 // import { toast } from "react-toastify";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ShieldAlert } from "lucide-react";
+import { Loader2, ShieldAlert } from "lucide-react";
 // import { toast } from "react-toastify";
 import {
   AlertDialog,
@@ -75,6 +75,8 @@ function RegisterPage() {
       confirmPassword: "",
     },
   });
+
+  const { isSubmitting } = form.formState;
 
   // 2. Define a submit handler.
   // const navigate = useNavigate();
@@ -205,7 +207,13 @@ function RegisterPage() {
             )}
           />
 
-          <Button type="submit">Sign up</Button>
+          {isSubmitting ? (
+            <Button className=" cursor-not-allowed opacity-50">
+              <Loader2 className="animate-spin" />
+            </Button>
+          ) : (
+            <Button type="submit">Sign up</Button>
+          )}
         </form>
       </Form>
       <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
